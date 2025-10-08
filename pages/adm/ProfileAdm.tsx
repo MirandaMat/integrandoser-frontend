@@ -1,8 +1,9 @@
 // src/pages/adm/ProfileAdm.tsx
 import { useState, useEffect, ChangeEvent, FormEvent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiCamera, FiSave, FiXCircle, FiEdit } from 'react-icons/fi';
-import '../../styles/general.css'; 
+// Adicione os ícones necessários
+import { FiCamera, FiSave, FiXCircle, FiEdit, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import '../../styles/general.css';
 
 // --- TIPAGEM DOS DADOS DO PERFIL ---
 interface ProfileData {
@@ -18,11 +19,16 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
     const [initialProfile, setInitialProfile] = useState<ProfileData | null>(null);
     const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    
+    // Estados para a nova senha
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isChangingPassword, setIsChangingPassword] = useState(isFirstLogin); // Inicia aberto se for primeiro login
+    const [showPassword, setShowPassword] = useState(false);
+
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
-    const [isEditing, setIsEditing] = useState(isFirstLogin); // Começa em modo de edição se for o primeiro login
+    const [isEditing, setIsEditing] = useState(isFirstLogin);
     const navigate = useNavigate();
 
     // --- BUSCA DE DADOS DO PERFIL ---
@@ -45,7 +51,7 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [navigate]);
 
     useEffect(() => {
         fetchProfile();
@@ -59,9 +65,12 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
         setProfileImageFile(null);
         setPreviewImage(null);
         setMessage('');
+        // Reseta os estados da senha
+        setNewPassword('');
+        setConfirmPassword('');
         if (!isFirstLogin) {
             setIsEditing(false);
-            // Requisito: Voltar para o Dashboard ao cancelar
+            setIsChangingPassword(false);
             navigate(-1);
         }
     };
@@ -83,8 +92,13 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
         e.preventDefault();
         setMessage('Salvando...');
 
-        if (isFirstLogin && newPassword !== confirmPassword) {
+        // Validação de senha movida para o topo
+        if (isChangingPassword && newPassword !== confirmPassword) {
             setMessage('Erro: As senhas não coincidem.');
+            return;
+        }
+        if (isFirstLogin && !newPassword) {
+            setMessage('Erro: A nova senha é obrigatória no primeiro acesso.');
             return;
         }
         
@@ -106,7 +120,8 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
             formData.append('imagem_perfil', profileImageFile);
         }
         
-        if (isFirstLogin && newPassword) {
+        // Adiciona a senha ao formData se ela estiver sendo alterada
+        if (isChangingPassword && newPassword) {
             formData.append('password', newPassword);
         }
 
@@ -121,7 +136,13 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Ocorreu um erro ao atualizar o perfil.');
 
-            if (isFirstLogin) {
+            // Lógica de redirecionamento e feedback
+            if (isChangingPassword && !isFirstLogin) {
+                 alert('Senha alterada com sucesso! Por segurança, você será desconectado. Por favor, faça login novamente.');
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                navigate('/login');
+            } else if (isFirstLogin) {
                 alert('Perfil atualizado com sucesso! Por favor, faça login novamente com sua nova senha.');
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
@@ -172,19 +193,52 @@ const ProfileAdm = ({ isFirstLogin = false }) => {
                         {/* Renderização dinâmica dos campos baseada no role */}
                         <DynamicFormFields profile={profile} handleChange={handleChange} isEditing={isEditing} />
 
-                        {isFirstLogin && (
+                        {/* --- SEÇÃO DE ALTERAÇÃO DE SENHA --- */}
+                        {isEditing && (
                             <>
-                                <h4 className="form-section-title">Definir Nova Senha</h4>
-                                <div className="form-grid">
-                                    <div className="form-group">
-                                        <label htmlFor="newPassword">Nova Senha</label>
-                                        <input type="password" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required minLength={6} placeholder="Mínimo de 6 caracteres" className="form-input"/>
+                                <h4 className="form-section-title">Segurança</h4>
+                                {!isChangingPassword ? (
+                                    <button type="button" className="btn-link-style" onClick={() => setIsChangingPassword(true)}>
+                                        Alterar Senha
+                                    </button>
+                                ) : (
+                                    <div className="form-grid">
+                                        <div className="form-group">
+                                            <label htmlFor="newPassword">Nova Senha</label>
+                                            <div className="password-input-wrapper">
+                                                <FiLock className="password-icon" />
+                                                <input
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    id="newPassword"
+                                                    value={newPassword}
+                                                    onChange={(e) => setNewPassword(e.target.value)}
+                                                    required={isFirstLogin}
+                                                    minLength={6}
+                                                    placeholder="Mínimo de 6 caracteres"
+                                                    className="form-input"
+                                                />
+                                                <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                                                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="confirmPassword">Confirmar Nova Senha</label>
+                                             <div className="password-input-wrapper">
+                                                <FiLock className="password-icon" />
+                                                <input
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    id="confirmPassword"
+                                                    value={confirmPassword}
+                                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                                    required={isFirstLogin}
+                                                    placeholder="Repita a nova senha"
+                                                    className="form-input"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="confirmPassword">Confirmar Nova Senha</label>
-                                        <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="Repita a nova senha" className="form-input"/>
-                                    </div>
-                                </div>
+                                )}
                             </>
                         )}
                     </div>

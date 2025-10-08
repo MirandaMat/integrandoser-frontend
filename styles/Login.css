@@ -1,5 +1,7 @@
 /* src/Login.css */
 
+
+
 /* Container da página com fundo desfocado */
 .login-page-container {
   position: relative;
@@ -22,43 +24,68 @@
   background-image: url('/assets/terapeutas.png');
   background-size: cover;
   background-position: center;
-  filter: blur(8px);
+  filter: blur(8px) brightness(0.7); /* Adicionado brilho para escurecer um pouco */
   transform: scale(1.1);
   z-index: -1;
 }
 
 /* Card de login com efeito de vidro */
 .login-card {
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 40px;
-  border-radius: var(--border-radius);
+  padding: 50px;
+  border-radius: 20px; /* Bordas mais suaves */
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   width: 100%;
   max-width: 450px;
   text-align: center;
+  color: #ffffff; /* Cor padrão do texto no card */
+}
+
+.login-logo {
+  height: 45px;
+  margin-bottom: 20px;
 }
 
 .login-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
-  color: var(--white);
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.login-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 35px;
+}
 .login-form .form-group {
   margin-bottom: 25px;
   text-align: left;
-  position: relative;
 }
 
 .login-form label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 500;
-  color: var(--white);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9); /* COR DO TEXTO BRANCA, COMO SOLICITADO */
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7); /* ÍCONE CORRIGIDO E ALINHADO */
+  font-size: 1.2rem;
+  pointer-events: none; /* Permite clicar "através" do ícone */
 }
 
 .login-form .input-icon {
@@ -71,47 +98,80 @@
 
 .login-form input {
   width: 100%;
-  padding: 12px 15px 12px 45px;
-  border-radius: 8px;
+  padding: 14px 20px 14px 50px !important;
+  border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--white);
+  background-color: transparent !important;
+  color: #ffffff;
   font-size: 1rem;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.login-form input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
+
 
 .login-form input:focus {
   outline: none;
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(178, 98, 212, 0.5);
+  color: var(--white);
+  border-color: var(--secondary) !important;
+  box-shadow: 0 0 0 4px rgba(196, 181, 253, 0.3);
 }
 
 .login-btn {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   border: none;
-  border-radius: 8px;
-  background-color: var(--primary);
+  border-radius: 30px;
+  background-color: transparent; /* Roxo primário */
   color: var(--white);
+  border: #fff 2px solid; /* Borda roxa escura */
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
+  margin-top: 10px;
 }
 
 .login-btn:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary); /* Roxo escuro */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
 }
 
 .error-message {
   color: #fff;
-  background-color: rgba(220, 53, 69, 0.8);
-  border: 1px solid rgba(245, 198, 203, 0.8);
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 20px;
+  background-color: rgba(179, 16, 16, 0.5) !important; /* Fundo vermelho translúcido */
+  border: 1px solid rgba(252, 165, 165, 0.5) !important;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 0;
+  margin-bottom: 25px; /* Aparece antes do botão de entrar */
+  font-size: 0.9rem;
+}
+
+
+/* ============================================= */
+/* RESPONSIVIDADE PARA TELAS MOBILE              */
+/* ============================================= */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 25px;
+    width: 90vw; /* Ocupa 90% da largura da tela */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .login-logo {
+    height: 40px;
+  }
+
+  .login-title {
+    font-size: 1.8rem;
+  }
+
+  .login-subtitle {
+    margin-bottom: 30px;
+  }
+
+  .login-form input {
+    padding: 12px 15px 12px 50px;
+  }
 }

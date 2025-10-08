@@ -81,7 +81,7 @@ const Blog = () => {
                             <h3 className="blog-card-title">{post.title}</h3>
                             <p className="blog-card-excerpt">{post.excerpt}</p>
                             
-                            <button onClick={() => handleReadArticle(post.id)} className="blog-card-link">
+                            <button onClick={() => handleReadArticle(post.id)} className="app-btn app-btn-primary" style={{marginTop: 'auto', paddingTop: '10px', paddingBottom: '10px'}}>
                                 Ler artigo
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -100,7 +100,7 @@ const Blog = () => {
                 transition={{ duration: 0.6, delay: 0.5 }}
             >
                 {/* O botão para ver todos os artigos continua com a mesma funcionalidade */}
-                <button onClick={() => { navigate('/blogposters'); window.scrollTo(0, 0); }} className="blog-button">
+                <button onClick={() => { navigate('/blogposters'); window.scrollTo(0, 0); }} className="app-btn app-btn-primary">
                     Ver Todos os Artigos
                 </button>
             </motion.div>

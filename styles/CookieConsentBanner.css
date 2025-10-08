@@ -84,3 +84,126 @@
     margin-top: 10px;
   }
 }
+
+/* Politicas.css */
+
+.politicas-page {
+  background-color: var(--light);
+  padding-top: 100px; /* Espaço para a navbar fixa */
+  padding-bottom: 80px;
+  min-height: 100vh;
+}
+
+.politicas-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 70px 20px;
+  margin-bottom: -50px; /* Efeito de sobreposição */
+}
+
+.politicas-header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.politicas-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+
+.politica-section {
+  margin-bottom: 45px;
+}
+
+.politica-section:last-child {
+  margin-bottom: 0;
+}
+
+.politica-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--primary-light);
+}
+
+.politica-subsection {
+  margin-top: 35px;
+  padding-left: 20px;
+  border-left: 3px solid var(--secondary-medium);
+}
+
+.politica-subsection h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 15px;
+}
+
+.politicas-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.politicas-content ul {
+  list-style-type: disc;
+  padding-left: 25px;
+  margin-top: 15px;
+}
+
+.politicas-content li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+/* Estilos para a página não encontrada */
+.politicas-not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.politicas-not-found h1 {
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.politicas-not-found p {
+  color: var(--text-light);
+  margin-bottom: 30px;
+}
+
+.politicas-not-found .btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+}
+
+.politicas-not-found .btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+  .politicas-header h1 {
+    font-size: 2.2rem;
+  }
+  .politicas-content {
+    padding: 30px;
+  }
+}

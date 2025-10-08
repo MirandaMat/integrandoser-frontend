@@ -10,10 +10,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // ===================================================================
-  // --- VERIFICA SE O USUÁRIO JÁ ESTÁ LOGADO AO CARREGAR A PÁGINA ---
-  // Se estiver, redireciona imediatamente para o dashboard correto.
-  // ===================================================================
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userString = localStorage.getItem('user');
@@ -41,11 +37,8 @@ const Login = () => {
           navigate('/', { replace: true });
       }
     }
-  }, [navigate]); // O array de dependências garante que isso rode apenas uma vez
+  }, [navigate]);
 
-  // ===================================================================
-  // --- FUNÇÃO PARA LIDAR COM O SUBMIT DO FORMULÁRIO DE LOGIN ---
-  // ===================================================================
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -63,21 +56,15 @@ const Login = () => {
         throw new Error(data.message || 'Falha no login');
       }
       
-      console.log("Dados do usuário recebidos da API:", data.user);
-
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       
-      // Se for o primeiro login, redireciona para completar o perfil
       if (data.user.first_login) {
-        console.log("Detectado primeiro login, redirecionando para /complete-profile");
         navigate('/complete-profile');
         return;
       }
       
-      // Se não, redireciona para o dashboard correspondente à role
       const userRole = data.user.role;
-      console.log(`Role do usuário: ${userRole}. Redirecionando...`);
 
       switch (userRole) {
         case 'ADM':
@@ -93,7 +80,6 @@ const Login = () => {
           navigate('/empresa/dashboard');
           break;
         default:
-          console.log("Role não reconhecida, redirecionando para a home.");
           navigate('/');
       }
 
@@ -102,42 +88,46 @@ const Login = () => {
     }
   };
 
-  // ===================================================================
-  // --- RENDERIZAÇÃO DO COMPONENTE (FORMULÁRIO) ---
-  // ===================================================================
   return (
     <div className="login-page-container">
       <div className="login-card">
-        <h2 className="login-title">Login</h2>
+        <img src="/full_branca.png" alt="IntegrandoSer Logo" className="login-logo" />
+        <h2 className="login-title">Acesse</h2>
+        <p className="login-subtitle">Bem-vindo(a) de volta!</p>
+
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <FiMail className="input-icon" />
-            <input 
-              type="email" 
-              id="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-              placeholder="seuemail@exemplo.com" 
-            />
+            <div className="input-wrapper">
+              <FiMail className="input-icon" />
+              <input 
+                type="email" 
+                id="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+                placeholder="seuemail@exemplo.com" 
+              />
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="password">Senha</label>
-            <FiLock className="input-icon" />
-            <input 
-              type="password" 
-              id="password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-              placeholder="Sua senha" 
-            />
+            <div className="input-wrapper">
+              <FiLock className="input-icon" />
+              <input 
+                type="password" 
+                id="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+                placeholder="Sua senha" 
+              />
+            </div>
           </div>
+          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="login-btn">
             Entrar
           </button>
-          {error && <p className="error-message">{error}</p>}
         </form>
       </div>
     </div>

@@ -66,10 +66,9 @@ const UserProfileModal = ({ user, isOpen, onClose, onEdit }: UserProfileModalPro
           </div>
         </div>
         <div className="modal-body">
-          <div className="modal-section">
+          <div className="modal-section contact-info-section">
             <h3>Contato e Localização</h3>
             <ul className="modal-details-list">
-              
               {user.profile?.telefone && <li><FiPhone /> {user.profile.telefone}</li>}
               {user.profile?.email && <li><FiMail /> {user.profile.email}</li>}
               {user.profile?.endereco && <li><FiMapPin /> {user.profile.endereco}, {user.profile.cidade}</li>}

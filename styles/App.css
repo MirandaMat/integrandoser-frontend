@@ -3197,11 +3197,13 @@ body {
 
 .modal-header {
   display: flex;
+  flex-direction: column; /* Alterado para empilhar verticalmente */
+  align-items: center;    /* Centraliza os itens horizontalmente */
+  text-align: center;     /* Centraliza o texto */
   padding: 30px;
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(28, 28, 28, 0.1); /* PADRONIZADO */
-  gap: 25px;
-  align-items: center;
+  gap: 15px; /* Ajustado o espaçamento */
 }
 
 .modal-image {
@@ -3244,6 +3246,7 @@ body {
 
 .modal-body {
   padding: 30px;
+  text-align: center; /* Adicionado para centralizar o conteúdo */
 }
 
 .modal-section {
@@ -3268,6 +3271,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center; /* Adicionado para centralizar as tags */
 }
 
 .modal-approach-tag {
@@ -3280,9 +3284,9 @@ body {
 }
 
 .modal-contact-btn {
-  display: block;
-  width: 100%;
-  padding: 15px;
+  display: inline-block; /* Alterado para se ajustar ao conteúdo */
+  width: auto;           /* Largura automática */
+  padding: 15px 40px;    /* Adicionado padding horizontal */
   background-color: var(--primary);
   color: white;
   border: none;

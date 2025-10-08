@@ -95,8 +95,8 @@ function HomePage() {
         <div className="hero-content">
           <h1 className="hero-title">{homeContent.hero_title || 'Integrando sua vida ao equilíbrio de uma mente saudável'}</h1>
           <div className="hero-buttons">
-            <a href={homeContent.hero_whatsapp_link || 'https://wa.me/555192883060'} className="btn btn-primary">Converse conosco</a>
-            <Link to="/terapeutas" className="btn btn-outline">Profissionais Credenciados</Link>
+            <a href={homeContent.hero_whatsapp_link || 'https://wa.me/555192883060'} className="app-btn app-btn-primary">Converse conosco</a>
+            <Link to="/terapeutas" className=" app-btn-outline app-btn">Profissionais Credenciados</Link>
           </div>
         </div>
         <div className="hero-scroll-indicator"></div>
@@ -201,7 +201,7 @@ function HomePage() {
                     <h2 className="section-title">{homeContent.tpt_title || 'Terapia Para Todos'}</h2>
                     <div className="tpt-text-box">
                         <p>{homeContent.tpt_text || 'O Terapia Para Todos - TPT é um projeto do IntegrandoSer criado para tornar a terapia acessível a todos, com planos completos e valores especiais...'}</p>
-                        <Link to="/TPT" className="btn btn-primary" onClick={() => window.scrollTo(0, 0)}>Saiba Mais</Link>
+                        <Link to="/TPT" className="app-btn app-btn-primary" onClick={() => window.scrollTo(0, 0)}>Saiba Mais</Link>
                     </div>
                 </Reveal>
             </div>
@@ -224,7 +224,7 @@ function HomePage() {
                 <Reveal delay={0.3}> <h2 className="section-therapists-title">Profissionais Credenciados</h2></Reveal>
                 <div className="therapists-text-box">
                     <Reveal delay={0.4}> <p>Cada profissional de nossa equipe traz consigo uma história única, marcada pelo compromisso genuíno com o cuidado e o acolhimento...</p></Reveal>
-                    <Reveal delay={0.5}> <Link to="/terapeutas" className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} >Conheça Todos</Link></Reveal>
+                    <Reveal delay={0.5}> <Link to="/terapeutas" className="btn btn-primary app-btn" onClick={() => window.scrollTo(0, 0)} >Conheça Todos</Link></Reveal>
                 </div>
             </div>
         </div>

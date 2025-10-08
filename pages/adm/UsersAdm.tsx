@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, ChangeEvent, FormEvent } from 'react';
 import '../../styles/Admin.css';
 import UserProfileModal from './UserProfileModal';
-import { FiEdit, FiTrash2, FiPlus, FiSearch } from 'react-icons/fi';
+import { FiEdit, FiTrash2, FiPlus, FiSearch, FiLock, FiEye, FiEyeOff, FiUpload, FiX } from 'react-icons/fi';
 
 // Opções para os campos de seleção
 const genderOptions = ['Não especificado', 'Homem', 'Mulher'];
@@ -21,6 +21,8 @@ const UserModal = ({ isOpen, onClose, onSave, userToEdit, apiError }) => {
     const [roleId, setRoleId] = useState('3');
     const [profileData, setProfileData] = useState<any>({});
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
     
     const isEditMode = useMemo(() => !!userToEdit, [userToEdit]);
 
@@ -31,10 +33,16 @@ const UserModal = ({ isOpen, onClose, onSave, userToEdit, apiError }) => {
                 setRoleId(String(userToEdit.role_id) || '3');
                 setProfileData(userToEdit.profile || {});
                 setPassword('');
+                const existingImageUrl = userToEdit.profile?.imagem_url 
+                    ? `http://localhost:3001/${userToEdit.profile.imagem_url}` 
+                    : '/assets/default-avatar.png';
+                setImagePreview(existingImageUrl);
             } else {
                 setEmail(''); setPassword(''); setRoleId('3'); setProfileData({});
+                setImagePreview('/assets/default-avatar.png');
             }
             setImageFile(null);
+            setShowPassword(false);
         }
     }, [userToEdit, isEditMode, isOpen]);
 
@@ -51,7 +59,24 @@ const UserModal = ({ isOpen, onClose, onSave, userToEdit, apiError }) => {
     };
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) setImageFile(e.target.files[0]);
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setImageFile(file);
+            // Cria uma URL temporária para a pré-visualização
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setImageFile(null);
+        // Se estiver editando, volta para a imagem original, senão para a padrão
+        const originalImage = isEditMode && userToEdit?.profile?.imagem_url
+            ? `http://localhost:3001/${userToEdit.profile.imagem_url}`
+            : '/assets/default-avatar.png';
+        setImagePreview(originalImage);
+        // Se você tiver um input de file, pode ser necessário resetá-lo também
+        // const fileInput = document.getElementById('file-input-id') as HTMLInputElement;
+        // if(fileInput) fileInput.value = "";
     };
 
     const handleSubmit = (e: FormEvent) => {
@@ -112,7 +137,27 @@ const UserModal = ({ isOpen, onClose, onSave, userToEdit, apiError }) => {
                         <div className="form-group"><label>Especialidade</label><input type="text" name="especialidade" value={profileData.especialidade || ''} onChange={handleProfileChange} /></div>
                         <div className="form-group"><label>Tipo de Acompanhamento</label><input type="text" name="tipo_acompanhamento" value={profileData.tipo_acompanhamento || ''} onChange={handleProfileChange} /></div>
                         <div className="form-group" style={{gridColumn: '1 / -1'}}><label>Experiência</label><textarea name="experiencia" value={profileData.experiencia || ''} onChange={handleProfileChange}></textarea></div>
-                        <div className="form-group" style={{gridColumn: '1 / -1'}}><label>Abordagem (selecione várias)</label><div className="multi-select-container">{approachOptions.map(opt => (<div key={opt} className="multi-select-option"><input type="checkbox" id={`abordagem-${opt}`} checked={profileData.abordagem?.includes(opt)} onChange={() => handleApproachChange(opt)} /><label htmlFor={`abordagem-${opt}`} style={{marginBottom: 0, fontWeight: 400}}>{opt}</label></div>))}</div></div>
+                        <div className="form-group" style={{gridColumn: '1 / -1'}}>
+                            <label>Abordagem (selecione várias)</label>
+                            <div className="multi-select-container">
+                                {approachOptions.map(opt => {
+                                    const isSelected = profileData.abordagem?.includes(opt);
+                                    return (
+                                        <div key={opt} className={`multi-select-option ${isSelected ? 'selected' : ''}`}>
+                                            <input 
+                                                type="checkbox" 
+                                                id={`abordagem-${opt}`} 
+                                                checked={isSelected} 
+                                                onChange={() => handleApproachChange(opt)}
+                                            />
+                                            <label htmlFor={`abordagem-${opt}`} className="multi-select-label">
+                                                {opt}
+                                            </label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                     
                 );
@@ -163,18 +208,73 @@ const UserModal = ({ isOpen, onClose, onSave, userToEdit, apiError }) => {
                 <form onSubmit={handleSubmit} className="admin-form">
                     <h4>Dados de Acesso</h4>
                     <div className="form-grid">
-                        <div className="form-group"><label>Email (Login)</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} required /></div>
-                        <div className="form-group"><label>Papel</label><select value={roleId} onChange={e => setRoleId(e.target.value)} required disabled={isEditMode}><option value="3">Paciente</option><option value="2">Profissional</option><option value="4">Empresa</option><option value="1">Administrador</option></select></div>
-                        <div className="form-group"><label>{isEditMode ? 'Nova Senha (opcional)' : 'Senha Provisória'}</label><input type="password" value={password} onChange={e => setPassword(e.target.value)} required={!isEditMode} /></div>
+                        <div className="form-group">
+                            <label>Email (Login)</label>
+                            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Papel</label>
+                            <select value={roleId} onChange={e => setRoleId(e.target.value)} required disabled={isEditMode}>
+                                <option value="3">Paciente</option>
+                                <option value="2">Profissional</option>
+                                <option value="4">Empresa</option>
+                                <option value="1">Administrador</option>
+                            </select>
+                        </div>
+                        
+                        {/* NOVO CAMPO DE SENHA */}
+                        <div className="form-group">
+                            <label>{isEditMode ? 'Nova Senha (opcional)' : 'Senha Provisória'}</label>
+                            <div className="password-input-wrapper">
+                                <FiLock className="password-icon" />
+                                <input 
+                                    type={showPassword ? 'text' : 'password'} 
+                                    value={password} 
+                                    onChange={e => setPassword(e.target.value)} 
+                                    required={!isEditMode} 
+                                    style={{paddingLeft: '40px', paddingRight: '40px'}}
+                                />
+                                <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
                     <h4>Dados do Perfil</h4>
                     {renderProfileFields()}
 
-                    <div className="form-group" style={{marginTop: '20px'}}><label>Foto de Perfil</label><input type="file" name="imagem_perfil" onChange={handleImageChange} accept="image/*" /></div>
+                    {/* NOVO CAMPO DE FOTO DE PERFIL */}
+                    <div className="form-group" style={{marginTop: '20px'}}>
+                        <label>Foto de Perfil</label>
+                        <div className="file-upload-container">
+                            <img src={imagePreview || '/assets/default-avatar.png'} alt="Preview" className="image-preview-circle" />
+                            <div className="upload-controls">
+                                <label htmlFor="imagem_perfil_input" className="btn-upload-photo">
+                                    <FiUpload /> Carregar Imagem
+                                </label>
+                                <input 
+                                    type="file" 
+                                    id="imagem_perfil_input"
+                                    name="imagem_perfil" 
+                                    onChange={handleImageChange} 
+                                    accept="image/*" 
+                                    style={{ display: 'none' }}
+                                />
+                                {imageFile && (
+                                    <button type="button" className="btn-remove-photo" onClick={handleRemoveImage}>
+                                        <FiX /> Remover
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                     
                     {apiError && <p className="error-message">{apiError}</p>}
-                    <div className="form-actions"><button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button><button type="submit" className="btn-new-user">{isEditMode ? 'Salvar Alterações' : 'Criar'}</button></div>
+                    <div className="form-actions">
+                        <button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button>
+                        <button type="submit" className="btn-new-user">{isEditMode ? 'Salvar Alterações' : 'Criar'}</button>
+                    </div>
                 </form>
             </div>
         </div>
