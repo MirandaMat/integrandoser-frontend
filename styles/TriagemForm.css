@@ -1,0 +1,374 @@
+/* src/styles/TriagemForm.css (Versão Moderna e Otimizada) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* --- Estrutura Principal e Fundo --- */
+.triagem-container {
+    background: linear-gradient(135deg, #f3e8ff 0%, #e7f0ff 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.triagem-card {
+    background-color: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 32px 40px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* --- Cabeçalho do Card --- */
+.triagem-header {
+    text-align: center;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 24px;
+}
+
+.triagem-header h1 {
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.triagem-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* --- Botões de Seleção de Categoria --- */
+.category-selection {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.category-btn {
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    background-color: transparent;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.category-btn svg {
+    color: var(--primary);
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.category-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
+}
+
+.category-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* --- Formulário de Triagem (Estilos Gerais) --- */
+.triagem-form .presentation-text {
+    background-color: #f8f5ff;
+    border-left: 5px solid var(--primary);
+    padding: 24px;
+    margin-bottom: 32px;
+    border-radius: 8px;
+}
+
+.triagem-form .presentation-text h3 {
+    margin-top: 0;
+    color: var(--primary-dark);
+}
+
+.triagem-form .presentation-text p,
+.triagem-form .presentation-text li {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+.triagem-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px 24px;
+}
+
+.triagem-form .form-group {
+    margin-bottom: 0;
+}
+
+.triagem-form .form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.triagem-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.triagem-form input[type="text"],
+.triagem-form input[type="email"],
+.triagem-form input[type="tel"],
+.triagem-form input[type="number"],
+.triagem-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    background-color: var(--white);
+    color: #374151;
+}
+
+.triagem-form input:focus,
+.triagem-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.triagem-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ============================================= */
+/* --- Estilo Moderno para Campos de Seleção (Select) --- */
+/* ============================================= */
+/* O seletor '.triagem-form .form-group > select' garante que o estilo se aplique apenas
+   aos selects que são filhos diretos de .form-group, evitando conflitos. */
+.triagem-form .form-group > select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    background-color: var(--white);
+    color: #374151;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%239CA3AF'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 1.2em 1.2em;
+    padding-right: 40px;
+}
+
+.triagem-form select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+
+/* ============================================= */
+/* --- Caixas de Seleção (Tags) - Estilo para Terapias --- */
+/* ============================================= */
+.checkbox-group-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-item label {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    background-color: #f9fafb;
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.checkbox-item label:hover {
+    border-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.checkbox-item input[type="checkbox"]:checked + label {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+/* ============================================= */
+/* --- Estilo Moderno para Botões de Rádio (Tags) --- */
+/* ============================================= */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Esconde o botão de rádio padrão. */
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+/* Estiliza o label para parecer uma tag/botão, igual ao checkbox. */
+.radio-group label {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    background-color: #f9fafb;
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+}
+
+/* Efeito de hover, igual ao checkbox. */
+.radio-group label:hover {
+    border-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+/* Estilo da tag quando o rádio está selecionado (usando o seletor de irmão adjacente '+'). */
+.radio-group input[type="radio"]:checked + label {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+
+/* --- Grupo de Termos (mantém o estilo de checkbox tradicional) --- */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input {
+    display: none;
+}
+
+.checkbox-group label {
+    font-weight: 500;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group label::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.checkbox-group input:checked + label::before {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+    background-position: center;
+}
+
+/* --- Botões de Ação --- */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.btn-submit, .btn-back {
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.btn-submit {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+.btn-submit:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+.btn-submit:disabled {
+    background-color: var(--primary-light);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-back {
+    background-color: transparent;
+    color: var(--dark);
+    border-color: var(--border-color);
+}
+.btn-back:hover {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+/* --- Mensagem de Sucesso --- */
+.success-message {
+    text-align: center;
+    padding: 40px;
+}
+.success-message h2 {
+    color: #065f46;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .triagem-card {
+        padding: 24px;
+    }
+    .triagem-header h1 {
+        font-size: 1.5rem;
+    }
+    .form-actions {
+        flex-direction: column-reverse; /* Botão de enviar fica no topo em telas pequenas. */
+    }
+}

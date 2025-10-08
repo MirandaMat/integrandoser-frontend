@@ -1,0 +1,312 @@
+/* src/styles/diario.css */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap');
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 24, 39, 0.6); /* Fundo escuro semitransparente */
+    backdrop-filter: blur(8px); /* Efeito de desfoque no fundo */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-out; /* Animação de entrada */
+}
+
+/* Animação para o overlay */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.dream-diary-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: var(--font-body-diary);
+}
+
+/* 1) CABEÇALHO PADRONIZADO */
+.diary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 1.5rem;
+    flex-wrap: wrap; /* Permite que os controles quebrem a linha em telas pequenas */
+}
+.diary-header h1 {
+    font-family: var(--font-title-diary);
+    font-size: 2rem; /* Tamanho de fonte padrão */
+    color: var(--primary);
+    margin: 0;
+}
+.diary-header p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin: 0.25rem 0 0;
+}
+
+.diary-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-grow: 1;
+    max-width: 600px; /* Limita a largura máxima dos controles */
+}
+
+/* 2) CAMPO DE BUSCA PADRONIZADO */
+.search-bar {
+    position: relative;
+    flex-grow: 1;
+}
+.search-bar svg {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+.search-bar input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: var(--background); /* Fundo da seção */
+    color: var(--text); /* Cor do texto padrão */
+}
+.search-bar input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.btn-new-dream {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+.btn-new-dream:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* 3) FORMULÁRIO PADRONIZADO */
+.dream-form {
+    background-color: var(--white); /* Fundo branco para o conteúdo do modal */
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+
+    position: relative; 
+    width: 100%;
+    max-width: 650px; 
+    max-height: 90vh; 
+    overflow-y: auto;
+    animation: slideUp 0.4s ease-out;
+}
+
+/* Animação para o formulário */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botão para fechar o modal */
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: var(--background);
+    color: var(--primary);
+}
+
+.dream-form h2 {
+    font-family: var(--font-title-diary);
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 2rem;
+}
+.dream-form input[type="text"], .dream-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius); /* Borda arredondada padrão */
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    font-family: var(--font-body-diary);
+    background-color: var(--background); /* Fundo da seção */
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+.dream-form input[type="text"]:focus, .dream-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+.dream-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* 4) BOTÃO DE ANEXO PADRONIZADO */
+.image-upload-area { margin-bottom: 1rem; }
+.image-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 2px dashed var(--primary); /* Borda com cor primária */
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--primary); /* Texto e ícone com cor primária */
+    background-color: var(--background); /* Fundo da seção */
+    transition: all 0.3s ease;
+}
+.image-upload-label:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+#dream_image { display: none; }
+.image-preview { position: relative; width: 200px; margin-top: 1rem; }
+.image-preview img { width: 100%; height: auto; border-radius: 8px; }
+.image-preview button {
+    position: absolute; top: -10px; right: -10px;
+    background: var(--dark); color: var(--white); border: none;
+    border-radius: 50%; width: 25px; height: 25px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+.form-actions { display: flex; justify-content: flex-end; gap: 1rem; }
+.btn-save, .btn-cancel {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-save { background-color: var(--primary); color: white; border-color: var(--primary); }
+.btn-cancel { background-color: transparent; color: var(--text-light); border-color: var(--border-color); }
+
+.entries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem; /* Adiciona espaçamento no topo da grade */
+}
+
+.entry-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+.entry-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.entry-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.entry-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+.entry-content time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.entry-content h3 {
+    font-family: var(--font-title-diary);
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+.entry-content p {
+    color: var(--text);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.entry-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+    padding-top: 1rem;
+}
+.entry-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* COMPATIBILIDADE COM TEMA ESCURO */
+[data-theme="dark"] .search-bar input {
+    color: var(--text); /* O texto fica claro */
+}
+
+@media (max-width: 768px) {
+    .diary-header {
+        margin-top: 35px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .diary-controls {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: none;
+    }
+}
