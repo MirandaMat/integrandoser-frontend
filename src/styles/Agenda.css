@@ -1,0 +1,1415 @@
+/* ============================================= */
+/* AGENDA.CSS - ESTILOS PARA PÁGINAS DE AGENDA   */
+/* ============================================= */
+/* Autor: Mateus Miranda                          */
+
+
+
+/* ============================================= */
+/* ESTILOS GERAIS E DE LAYOUT                    */
+/* ============================================= */
+
+
+.management-section {
+  background-color: var(--white);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+  /* ADICIONADO: Limita a largura da seção e a centraliza na página */
+  max-width: 1500px; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.management-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.management-header .header-actions {
+    display: flex;
+    align-items: center; /* Chave para o alinhamento vertical */
+    
+    gap: 20px;           /* Espaço principal entre a busca e o grupo de botões */
+}
+
+.header-button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;           /* Espaço ENTRE os botões "Calendário" e "Agendar" */
+}
+
+.agenda-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+
+/* ============================================= */
+/* NOVO: ESTILOS PARA O MODAL DE HORÁRIOS        */
+/* ============================================= */
+
+.slots-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+}
+.slot-item:last-child {
+  border-bottom: none;
+}
+.slot-item:hover {
+  background-color: var(--background);
+}
+
+.slot-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slot-item-info .slot-time {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.slot-item-info .slot-status {
+  font-size: 0.85rem;
+  padding: 3px 8px;
+  border-radius: 99px;
+  width: fit-content;
+}
+.slot-item-info .slot-status.disponivel {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.slot-item-info .slot-status.agendado {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.slot-item-actions button {
+  margin-left: 8px;
+}
+
+.slot-edit-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.slot-edit-form input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+
+/* ============================================= */
+/* CARDS DE AGENDAMENTO (BASE)                   */
+/* ============================================= */
+
+.agenda-item-card {
+  background-color: var(--white);
+  border-radius: 16px; /* Bordas mais arredondadas */
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease-out;
+}
+
+.agenda-item-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+/* 1. CABEÇALHO DO CARD (APENAS O STATUS) */
+.card-status-header {
+  padding: 12px 20px;
+  background-color: var(--background);
+  display: flex;
+  justify-content: flex-end; /* Alinha o status à direita */
+}
+
+/* 2. CORPO DO CARD (USUÁRIOS) */
+.card-user-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px;
+  gap: 16px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--border-color);
+  border: 2px solid var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.user-avatar-large {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================= */
+/* STATUS BADGE (COMPARTILHADO)                  */
+/* ============================================= */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-badge.agendada { background-color: #dbeafe; color: #1e40af; }
+.status-badge.concluida, .status-badge.concluída { background-color: #d1fae5; color: #065f46; }
+.status-badge.cancelada { background-color: #fee2e2; color: #991b1b; }
+
+
+/* ============================================= */
+/* VISÃO DA EMPRESA (EmpresaAgenda.tsx)          */
+/* ============================================= */
+.company-agenda-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  gap: 16px;
+}
+
+.user-info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 12px;
+  transition: background-color 0.2s;
+  flex: 1;
+  min-width: 0; 
+}
+
+.user-info-item:hover {
+  background-color: var(--background);
+}
+
+.user-info-item div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.user-role-label {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.separator-icon {
+  color: var(--primary-light);
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+/* 3. RODAPÉ DO CARD (DATA E HORA) */
+.card-datetime-footer {
+  border-top: 1px solid var(--border-color);
+  background-color: var(--background);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
+}
+
+.datetime-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.datetime-item svg {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+/* Estilos para o estado "Não atribuído" na agenda da empresa */
+.user-info-item.inactive {
+  cursor: default; /* Remove o cursor de ponteiro */
+  opacity: 0.7;
+}
+
+.user-info-item.inactive:hover {
+  background-color: transparent; /* Remove o efeito hover */
+}
+
+.user-avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  font-size: 1.5rem;
+}
+
+.user-name-unassigned {
+  font-style: italic;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.professional-name-small {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: 4px;
+  transition: all 0.2s;
+}
+
+.professional-name-small:hover {
+  text-decoration: underline;
+  color: var(--primary-dark);
+}
+
+/* ============================================= */
+/* VISÃO DO PACIENTE E PROFISSIONAL              */
+/* ============================================= */
+.professional-agenda-card {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.professional-agenda-card .clickable-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.professional-agenda-card .card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.professional-agenda-card .card-info h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--dark);
+}
+
+.professional-agenda-card .card-info p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.appointment-detail-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.appointment-detail-line:last-child {
+  border-bottom: none;
+}
+
+.appointment-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: color 0.2s;
+}
+
+.btn-icon:hover {
+  color: var(--primary);
+}
+
+.card-action-btn {
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.card-action-btn:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.card-actions-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  margin-left: 16px;
+}
+
+.status-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+/* ============================================= */
+/* SEÇÃO DE PRÓXIMOS ATENDIMENTOS                */
+/* ============================================= */
+.future-appointments-list {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 16px; /* Para a barra de rolagem não cortar a sombra */
+  /* ADICIONADO: Habilita o scroll horizontal */
+  overflow-x: auto;
+  /* ADICIONADO: Impede que os itens quebrem para a linha de baixo */
+  flex-wrap: nowrap;
+}
+
+.future-appointment-item {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition);
+  /* ADICIONADO: Define uma largura mínima para cada item */
+  min-width: 320px; 
+  flex-shrink: 0; /* Impede que os itens encolham */
+}
+
+.future-appointment-item:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.future-appointment-item img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.future-appointment-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.future-appointment-info strong {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.future-appointment-info span {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* ============================================= */
+/* VISÃO DO ADMIN (AdminAgenda.tsx)              */
+/* ============================================= */
+
+.availability-manager {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Espaçamento entre a grade de inputs e o botão */
+}
+
+
+.availability-manager h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-size: 1.2rem;
+}
+
+.availability-manager .form-grid {
+    display: grid;
+    /* Para telas largas: 5 colunas. Para telas menores, vai quebrando até 1 coluna. */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.availability-manager .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.availability-manager .form-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.availability-manager .form-group input {
+    font-size: 1rem;
+    padding: 10px 14px;
+    background-color: var(--white);
+    border: 2px solid var(--border-color); /* Borda cinza claro como padrão */
+    border-radius: 8px;
+    outline: none; /* Remove o contorno padrão do navegador */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.availability-manager .form-group input:focus {
+    border-color: var(--primary); /* Roxo ao focar */
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); /* Sombra suave roxa */
+}
+
+.availability-manager .form-group input[type="date"],
+.availability-manager .form-group input[type="time"] {
+    accent-color: var(--primary);
+    cursor: text;
+}
+
+.availability-manager .btn-new-user {
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* Alinha o botão à esquerda no container flex */
+}
+
+.availability-manager .btn-new-user:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+}
+
+.availability-manager .btn-new-user:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.availability-manager .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.availability-manager .form-group input[type="date"],
+.availability-manager .form-group input[type="time"] {
+    width: 100%;
+    padding-right: 40px; /* Adiciona espaço extra à direita para o ícone não sobrepor o texto */
+}
+
+.availability-manager input[type="date"]::-webkit-calendar-picker-indicator,
+.availability-manager input[type="time"]::-webkit-calendar-picker-indicator {
+    background: none;
+    display: none;
+}
+
+.availability-manager .input-icon {
+    position: absolute;
+    right: 14px; /* Posição à direita */
+    font-size: 1.2rem;
+    color: var(--primary); /* Cor roxa do ícone */
+    pointer-events: none; /* Permite que o clique atravesse o ícone e atinja o input */
+}
+
+
+.admin-agenda-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.admin-appointment-card {
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.admin-appointment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.admin-appointment-card.pending-review {
+    border-color: #ef4444; /* Borda vermelha */
+    background-color: #fef2f2; /* Fundo vermelho bem claro */
+}
+.admin-appointment-card.pending-review:hover {
+    border-color: #dc2626;
+}
+
+.admin-appointment-card .card-header {
+    padding: 10px 20px;
+    background-color: var(--background);
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-participants {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.participant {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.participant img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.participant-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.participant-info span {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.participant-info strong {
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 1.1rem;
+}
+
+.card-details {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text);
+}
+
+.card-details p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.card-actions {
+  display: flex;
+  padding: 12px;
+  background-color: var(--background);
+  gap: 8px;
+}
+
+.card-actions .action-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.card-actions .action-btn:hover {
+    background-color: var(--border-color);
+}
+
+.card-actions .edit-btn {
+  color: var(--primary-dark);
+}
+.card-actions .edit-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.card-actions .delete-btn {
+  color: #ef4444;
+}
+.card-actions .delete-btn:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/* ============================================= */
+/* ESTILO MODERNO PARA O MODAL DE AGENDAMENTO    */
+/* ============================================= */
+
+/* --- Conteúdo do Modal --- */
+.modal-content {
+    background-color: var(--white);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 700px; /* Um pouco mais largo para o formulário */
+    box-shadow: var(--shadow-lg);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Cabeçalho do Modal --- */
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--dark);
+}
+
+/* --- Formulário Principal dentro do Modal --- */
+.modal-content .admin-form {
+    padding: 24px;
+    overflow-y: auto; /* Permite rolar o conteúdo do formulário se for muito grande */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.modal-content .admin-form h4 {
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+/* --- Grade Responsiva --- */
+.modal-content .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.modal-content .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-content .form-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+/* --- Estilo unificado para Inputs e Selects --- */
+.modal-content .form-group input,
+.modal-content .form-group select {
+    font-size: 1rem;
+    padding: 10px 14px;
+    background-color: var(--white);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    width: 100%;
+}
+
+.modal-content .form-group input:focus,
+.modal-content .form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* --- Container para Input com Ícone --- */
+.modal-content .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Ícone Roxo Posicionado --- */
+.modal-content .input-icon {
+    position: absolute;
+    right: 14px;
+    font-size: 1.2rem;
+    color: var(--primary);
+    pointer-events: none;
+}
+
+/* --- Ajuste no padding para o ícone não sobrepor o texto --- */
+.modal-content input[type="datetime-local"] {
+    padding-right: 40px;
+}
+
+/* --- Esconde o ícone padrão do navegador --- */
+.modal-content input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    background: none;
+    display: none;
+}
+
+/* --- Ações do Formulário (Botões) --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-cancel {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-color);
+}
+.btn-cancel:hover {
+    background-color: var(--background);
+}
+
+/* ============================================= */
+/* MODAL DE PERFIL DE USUÁRIO                    */
+/* ============================================= */
+.user-preview-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(29, 29, 29, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000; padding: 20px;
+}
+
+.user-preview-modal {
+  background-color: var(--white);
+  border-radius: 16px;
+  width: 100%; max-width: 600px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  max-height: 90vh;
+  display: flex; flex-direction: column;
+}
+
+.user-preview-modal .modal-close-btn {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; cursor: pointer; color: var(--text-light);
+    transition: color 0.2s;
+}
+.user-preview-modal .modal-close-btn:hover { color: var(--dark); }
+
+.user-preview-modal .modal-header {
+  display: flex; padding: 30px; gap: 25px; align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.user-preview-modal .modal-image {
+  width: 100px; height: 100px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0; border: 4px solid var(--primary-light);
+}
+.user-preview-modal .modal-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.user-preview-modal .modal-header-content h2 { margin: 0; color: var(--dark); font-size: 1.8rem; }
+.user-preview-modal .modal-specialty { color: var(--text-light); font-weight: 500; margin: 8px 0; }
+.user-preview-modal .role-badge { margin-top: 8px; display: inline-block; }
+
+
+.user-preview-modal .modal-body {
+  padding: 20px 30px 30px;
+  overflow-y: auto;
+}
+
+.user-preview-modal .modal-section { margin-bottom: 24px; }
+.user-preview-modal .modal-section:last-child { margin-bottom: 0; }
+
+.user-preview-modal .modal-section h3 {
+  color: var(--dark); font-size: 1.1rem; font-weight: 600;
+  margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);
+}
+.user-preview-modal .modal-section p, .user-preview-modal .modal-section li {
+  color: var(--text); line-height: 1.6;
+}
+
+.user-preview-modal .modal-details-list { list-style: none; padding: 0; }
+.user-preview-modal .modal-details-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.user-preview-modal .modal-details-list svg { color: var(--primary); flex-shrink: 0; }
+.upcoming-sessions-list { list-style: none; padding-left: 20px; margin-top: 10px; }
+
+
+/* ============================================= */
+/* VISÃO DO PACIENTE E PROFISSIONAL (MODERNIZADO) */
+/* ============================================= */
+
+.professional-agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    gap: 24px;
+}
+
+.professional-session-card {
+    background-color: var(--white);
+    border-radius: 16px; 
+    max-width: 700px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    transition: var(--transition);
+    
+}
+
+.professional-session-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.professional-session-card.pending-review {
+    border-color: #ef4444; /* Borda vermelha de alerta */
+    background-color: #fef2f2; /* Fundo vermelho bem claro para chamar atenção */
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+.professional-session-card.pending-review:hover {
+    border-color: #dc2626; /* Vermelho mais escuro no hover */
+}
+
+.card-main-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    cursor: pointer;
+}
+
+.card-main-content .user-avatar-large {
+    flex-shrink: 0;
+    width: 72px; 
+    height: 72px;
+    border: 3px solid var(--primary-light);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card-main-content .card-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem; 
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.card-main-content .card-info p {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.card-main-content .card-info p svg {
+    color: var(--primary);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: var(--background);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 14px 14px; 
+}
+
+.status-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    background-color: var(--white);
+    cursor: pointer;
+    transition: var(--transition);
+    outline-color: var(--primary-light);
+    color: var(--primary); /* AJUSTE AQUI: Adiciona a cor roxa ao texto */
+}
+.status-select:hover {
+    border-color: var(--primary-light);
+}
+
+.icon-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s ease-in-out;
+}
+
+.icon-btn:hover {
+    background-color: var(--border-color);
+    color: var(--primary-dark);
+}
+
+.icon-btn.danger:hover {
+    background-color: #fee2e2; /* Fundo vermelho claro */
+    color: #b91c1c; /* Ícone vermelho escuro */
+}
+
+/* ============================================= */
+/* Padronização de Botões    */
+/* ============================================= */
+
+/* BASE COMUM PARA BOTÕES PRINCIPAIS E SECUNDÁRIOS */
+.btn-new-user, .card-action-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* BOTÃO PRIMÁRIO (Ex: Salvar, Novo Agendamento) */
+.btn-new-user {
+  background-color: var(--primary);
+  color: var(--white);
+}
+.btn-new-user:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* BOTÃO SECUNDÁRIO (Ex: Ver Calendário) */
+.btn-new-user.secondary {
+  background-color: var(--background);
+  color: var(--text);
+  border-color: var(--border-color);
+}
+.btn-new-user.secondary:hover {
+  background-color: var(--border-color);
+  border-color: var(--text-light);
+  transform: translateY(-2px);
+}
+
+/* BOTÕES DE ÍCONE (Ex: Editar, Remover, Download) */
+.icon-btn, .action-btn {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: all 0.2s ease-in-out;
+}
+.icon-btn:hover, .action-btn:hover {
+  background-color: var(--border-color);
+  color: var(--primary-dark);
+}
+.icon-btn.danger:hover, .action-btn.delete-btn:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Alinha os botões de Salvar/Gerenciar Horários lado a lado */
+.availability-actions {
+  display: flex;
+  flex-wrap: wrap; /* Permite quebrar a linha em telas muito pequenas */
+  gap: 16px;
+  margin-top: -10px; /* Ajuste para reduzir o espaço extra do container pai */
+}
+
+/* Reduz a fonte e o padding especificamente para estes botões */
+.availability-actions .btn-new-user {
+  font-size: 0.9rem;
+  padding: 8px 16px;
+}
+
+
+/* ============================================= */
+/* COMPONENTE CUSTOMIZADO DE SELEÇÃO DE STATUS   */
+/* ============================================= */
+
+.custom-status-selector {
+  position: relative; /* Contexto para o menu dropdown */
+  min-width: 150px;
+}
+
+/* O botão que mostra o status atual */
+.status-trigger-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  /* Reutiliza o estilo do status-badge para manter a consistência */
+}
+
+.status-trigger-btn .chevron-icon {
+  transition: transform 0.2s ease-in-out;
+}
+.status-trigger-btn .chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+/* O menu que aparece ao clicar */
+.status-dropdown-menu {
+  position: absolute;
+  bottom: calc(100% + 8px); /* Aparece ACIMA do botão */
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+  overflow: hidden;
+  padding: 6px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.status-dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.status-dropdown-menu button:hover {
+  background-color: var(--background);
+  color: var(--primary-dark);
+}
+
+.status-dropdown-menu button.active {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================= */
+/* RESPONSIVIDADE          */
+/* ============================================= */
+
+@media (max-width: 768px) {
+
+  .management-section .management-header {
+    flex-direction: column; /* Empilha título e ações */
+    align-items: flex-start; /* Garante que o título 'Agendamentos' fique à esquerda */
+    gap: 20px; /* Aumenta o espaço entre o título e o bloco de ações */
+  }
+
+  .management-header .header-actions {
+    width: 100%; /* FORÇA o container de ações a ocupar a largura total */
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start; /* RESETA o alinhamento 'flex-end' do desktop */
+    gap: 12px;
+  }
+
+  .professional-session-card .card-main-content {
+    flex-direction: column; /* Coloca a imagem acima do texto */
+    text-align: center;     /* Centraliza o texto (h4 e p) */
+  }
+
+  /* 1. Redução de Fontes (Visão Geral) */
+  .management-header h2 {
+    font-size: 1.25rem; /* Reduz o título das seções */
+  }
+
+  .admin-appointment-card .participant-info strong {
+    font-size: 0.8rem; /* Reduz o nome dos participantes no card */
+  }
+  
+  .admin-appointment-card .card-details p,
+  .future-appointment-info span {
+    font-size: 0.85rem; /* Reduz textos de detalhes */
+  }
+
+  .btn-new-user, .card-action-btn {
+    padding: 8px 10px; /* Botões um pouco menores */
+    font-size: 0.75rem;
+  }
+
+  .header-button-group {
+    display: flex; /* Alinha os botões em linha */
+    gap: 12px;     /* Adiciona um espaço entre eles */
+  }
+
+  /* Faz com que cada botão ocupe metade do espaço disponível */
+  .header-button-group > * {
+    flex: 1;
+  }
+
+  /* 2. Alinhamento dos botões da seção de Triagem */
+  .availability-actions {
+    display: flex; 
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  /* 3. Ajuste nos Cards de Próximos Atendimentos */
+  .future-appointments-list {
+    gap: 12px;
+  }
+
+  .future-appointment-item {
+    min-width: 170px; /* Reduz drasticamente a largura para caberem 2 */
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .professional-session-card .card-info p {
+    justify-content: center;
+  }
+
+  .future-appointment-item img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .future-appointment-item .future-appointment-info strong {
+    font-size: 0.9rem;
+  }
+
+  /* 4. Reorganização do Header e Cards de Agendamentos */
+  .management-section .management-header {
+    flex-direction: column; /* Empilha título e ações */
+    align-items: stretch; /* Faz os itens ocuparem 100% da largura */
+  }
+
+  
+
+  .management-header .header-actions {
+      flex-grow: 1; /* Essencial: faz o container crescer */
+      display: flex;
+      flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo se não houver espaço */
+      justify-content: flex-end; /* Alinha os itens (busca e botões) à direita */
+      gap: 16px;
+  }
+
+  .header-actions .search-bar {
+      max-width: 400px; /* Limita a largura máxima da busca para não ficar excessivamente grande */
+  }
+
+  .management-header .header-actions .search-bar {
+    width: 100%;
+  }
+
+  .admin-agenda-grid-modern {
+    grid-template-columns: 1fr; /* Força uma única coluna para os cards */
+  }
+
+  .card-footer {
+    flex-direction: row; /* Mantém os itens lado a lado */
+    flex-wrap: wrap;     /* Permite que quebrem a linha se não houver espaço */
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* Garante que a lista de agendamentos vire uma única coluna no mobile */
+  .agenda-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Empilha as informações de colaborador e profissional dentro do card */
+  .card-user-content {
+    flex-direction: column; 
+    align-items: stretch; /* Faz os itens ocuparem a largura total */
+    gap: 12px;
+  }
+
+  /* Gira o ícone de coração para se adequar ao layout vertical */
+  .separator-icon {
+    transform: rotate(90deg);
+    align-self: center; /* Centraliza o ícone no meio */
+    margin: 8px 0;
+  }
+
+  /* Empilha data e hora no rodapé do card */
+  .card-datetime-footer {
+    flex-direction: column;
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    gap: 8px;
+  }
+
+  /* Reduz o tamanho de fontes e avatares para o mobile, seguindo o padrão */
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+
+  .datetime-item {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+    .professional-agenda-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+    }
+
+    .card-main-content {
+        flex-direction: column; /* Avatar acima do texto */
+        text-align: center;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .status-select {
+        width: 100%;
+        text-align: center;
+    }
+
+    .card-user-content {
+      flex-direction: column; /* Empilha colaborador e profissional */
+      align-items: stretch; /* Ocupa toda a largura */
+    }
+    .separator-icon {
+      transform: rotate(90deg); /* Gira o ícone de coração */
+      margin: 8px 0;
+    }
+
+    .card-datetime-footer {
+      flex-direction: column; /* Empilha data e hora */
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+}

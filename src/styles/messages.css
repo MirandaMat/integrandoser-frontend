@@ -1,0 +1,884 @@
+/* src/styles/messages.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+
+/* ==============================================
+   LAYOUT PRINCIPAL DA PÁGINA DE MENSAGENS
+   ==============================================
+*/
+.messages-layout-modern {
+  display: flex;
+  height: calc(100vh - 100px); /* Ajuste a altura conforme o header/footer do seu app */
+  background-color: var(--white-color);
+  border-radius: var(--container-border-radius);
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.07);
+  overflow: hidden;
+  font-family: var(--font-main);
+}
+
+
+/* ==============================================
+   BARRA LATERAL DE CONVERSAS (ESQUERDA)
+   ==============================================
+*/
+.conversations-sidebar-modern {
+  width: 440px;
+  flex-shrink: 0; /* Impede que a barra lateral encolha */
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  /* A transição de largura não é mais necessária */
+}
+
+.sidebar-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.sidebar-header h3 { 
+  margin: 0; 
+  font-size: 1.5rem; 
+  font-weight: 700;
+  color: var(--dark-text-color); 
+}
+
+.new-convo-btn {
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  color: var(--primary-color);
+  padding: 8px; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+.new-convo-btn:hover { 
+  background-color: var(--primary-light-color); 
+  color: var(--primary-dark-color);
+}
+
+.search-bar-wrapper { 
+  padding: 15px 20px; 
+  position: relative; 
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search-bar-wrapper svg { 
+  position: absolute; 
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px; 
+  color: var(--light-text-color); 
+}
+
+.search-bar-wrapper input {
+  width: 100%; 
+  padding: 12px 12px 12px 40px; 
+  border-radius: 22px !important;
+  border: 1px solid var(--border-color); 
+  background-color: var(--white-color);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* AJUSTE 2: Cor do texto do input de busca */
+  color: var(--dark-text-color);
+}
+
+.search-bar-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light-color);
+}
+
+.conversation-list { 
+  list-style: none; 
+  padding: 10px; 
+  margin: 0; 
+  overflow-y: auto; 
+  flex-grow: 1; 
+}
+
+.conversation-item { 
+  position: relative; 
+  margin-bottom: 4px;
+}
+
+.delete-convo-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--light-text-color);
+  padding: 5px;
+  border-radius: 50%;
+  opacity: 0; /* Começa invisível */
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.conversation-item:hover .delete-convo-btn {
+  opacity: 1; /* Aparece no hover */
+}
+
+.delete-convo-btn:hover {
+  background-color: var(--border-color);
+  color: #ef4444; /* Vermelho perigo */
+}
+
+/* Estilos para o corpo e ações do modal de confirmação */
+.modal-body {
+  padding: 10px 0;
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+  color: var(--body-text-color);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border-radius: var(--item-border-radius);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary {
+  background-color: var(--border-color);
+  color: var(--dark-text-color);
+}
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: var(--white-color);
+}
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+.conversation-click-area {
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  padding: 15px;
+  border-radius: var(--item-border-radius); 
+  cursor: pointer; 
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.conversation-item:hover .conversation-click-area { 
+  background-color: var(--border-color); 
+}
+
+.conversation-item.active .conversation-click-area { 
+  background-color: var(--primary-color); 
+  color: var(--white-color); 
+}
+
+.conversation-item.active .conversation-name, 
+.conversation-item.active .conversation-preview,
+.conversation-item.active .conversation-time { 
+  color: var(--white-color) !important; 
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.conversation-details { 
+  flex-grow: 1; 
+  min-width: 0; 
+  padding-right: 50px;
+}
+
+.conversation-name { 
+  font-weight: 600; 
+  color: var(--dark-text-color);
+  margin: 0;
+}
+
+.conversation-preview { 
+  font-size: 0.9rem; 
+  color: var(--body-text-color); 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  margin: 2px 0 0 0;
+}
+
+.conversation-time { 
+  position: absolute; 
+  top: 18px; 
+  right: 15px; 
+  font-size: 0.75rem; 
+  color: var(--light-text-color); 
+}
+
+/* ==============================================
+   ÁREA DO CHAT (DIREITA)
+   ==============================================
+*/
+.chat-area-modern { 
+  flex-grow: 1; 
+  display: flex; 
+  flex-direction: column; 
+  background-color: var(--white-color); 
+}
+
+.chat-header-modern {
+  padding: 15px 24px; 
+  border-bottom: 1px solid var(--border-color); 
+  background: var(--white-color);
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02); 
+  z-index: 10;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-info strong { 
+  font-size: 1.1rem; 
+  color: var(--dark-text-color); 
+  font-weight: 600;
+}
+
+/* Estilo do indicador online */
+.online-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: var(--success-color);
+  border-radius: 50%;
+  border: 1px solid var(--white-color);
+}
+
+.header-info span { 
+  font-size: 0.8rem; 
+  color: var(--success-color); 
+  font-weight: 500; 
+}
+
+.messages-container-modern {
+  flex-grow: 1; 
+  padding: 24px; 
+  overflow-y: auto; 
+  display: flex;
+  flex-direction: column; 
+  gap: 4px;
+}
+
+/* Rodapé (input de mensagem) */
+.chat-footer-modern {
+  padding: 15px 24px; 
+  border-top: 1px solid var(--border-color);
+  display: flex; 
+  flex-direction: row; /* Alterado para coluna */
+  gap: 12px; 
+  background-color: var(--background-color);
+}
+
+.footer-input-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.footer-action-btn {
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  color: var(--light-text-color);
+  padding: 10px; 
+  border-radius: 50%; 
+  display: flex;
+  transition: background-color 0.2s, color 0.2s;
+}
+.footer-action-btn:hover { 
+  background-color: var(--border-color); 
+  color: var(--dark-text-color); 
+}
+
+.message-input-wrapper {
+  flex-grow: 1;
+}
+
+.message-input-wrapper input {
+  width: 100%; 
+  padding: 12px 20px; 
+  border: 1px solid var(--border-color);
+  border-radius: 22px; /* Mais arredondado */
+  font-size: 1rem; 
+  background-color: var(--white-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--dark-text-color);
+}
+.message-input-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light-color);
+}
+
+.chat-footer-modern .send-btn { 
+  background-color: var(--primary-color) !important; 
+  color: var(--white-color) !important; 
+  padding: 12px;
+}
+.chat-footer-modern .send-btn:hover { 
+  background-color: var(--primary-dark-color) !important; 
+}
+
+/* NOVO: Estilo para pré-visualização do anexo */
+.attachment-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: var(--primary-light-color);
+  border-radius: var(--item-border-radius);
+  font-size: 0.9rem;
+  color: var(--primary-dark-color);
+  width: 100%;
+}
+
+.attachment-preview span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
+.attachment-preview button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-dark-color);
+}
+
+/* Placeholder para quando não há conversa selecionada */
+.no-conversation-selected {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
+  height: 100%; 
+  text-align: center; 
+  color: var(--light-text-color);
+  padding: 20px;
+}
+.no-conversation-selected svg { 
+  font-size: 4rem; 
+  margin-bottom: 1.5rem; 
+  stroke-width: 1.5;
+  color: var(--primary-light-color);
+}
+.no-conversation-selected h3 { 
+  color: var(--dark-text-color); 
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.no-conversation-selected p {
+  max-width: 300px;
+}
+
+/* ==============================================
+   ESTILOS DOS ITENS DE MENSAGEM
+   ==============================================
+*/
+
+/* AJUSTE 1: Alinhamento das mensagens */
+.message-wrapper {
+  display: flex;
+  margin-bottom: 12px;
+  position: relative; /* Para posicionar ações */
+}
+.sent-wrapper {
+  justify-content: flex-end; /* Mensagem enviada à direita */
+}
+.received-wrapper {
+  justify-content: flex-start; /* Mensagem recebida à esquerda */
+}
+
+.message {
+  max-width: 70%;
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.sent {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border-bottom-right-radius: 5px; /* Estilo de balão */
+}
+.received {
+  background-color: var(--border-color);
+  color: var(--dark-text-color);
+  border-bottom-left-radius: 5px; /* Estilo de balão */
+}
+
+.message-actions {
+  position: absolute;
+  top: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+  background-color: var(--white-color);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: var(--base-shadow);
+}
+.sent-wrapper .message-actions { right: 105%; }
+.received-wrapper .message-actions { left: 105%; }
+
+
+.react-action-btn {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: calc(50% + 20px); 
+  background-color: var(--white-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  box-shadow: var(--base-shadow);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-actions button, .react-action-btn {
+  background: none; border: none; cursor: pointer; color: var(--body-text-color);
+}
+
+/* Posiciona os botões de ação à esquerda do balão enviado */
+.sent-wrapper .message-actions,
+.sent-wrapper .react-action-btn {
+  right: 100%; 
+  margin-right: 8px;
+}
+
+/* Posiciona os botões de ação à direita do balão recebido */
+.received-wrapper .message-actions,
+.received-wrapper .react-action-btn {
+  left: 100%;
+  margin-left: 8px;
+}
+
+/* AJUSTE 3: Popover de Reações */
+
+.sent-wrapper .react-action-btn { left: -35px; }
+.received-wrapper .react-action-btn { right: -35px; }
+
+.reaction-popover {
+  position: absolute;
+  top: calc(50% + 20px); 
+  background-color: var(--white-color);
+  box-shadow: var(--base-shadow);
+  border-radius: 20px;
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+/* Posiciona o popover em mensagens recebidas (à esquerda) */
+.reaction-popover.received {
+  left: 100%;
+  margin-left: 8px;
+  transform: translateX(0); /* Reseta transformações antigas */
+}
+
+/* Posiciona o popover em mensagens enviadas (à direita) */
+.reaction-popover.sent {
+  right: 100%;
+  margin-right: 8px;
+  transform: translateX(0); /* Reseta transformações antigas */
+}
+
+/* Flecha do balão */
+.reaction-popover::after {
+  content: '';
+  position: absolute;
+  /* Aponta para CIMA, ancorada na parte de baixo do popover */
+  bottom: 100%; 
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--white-color) transparent;
+}
+
+.reaction-popover.received::after {
+  left: 20px;
+}
+
+/* Posição da flecha para popovers da direita */
+.reaction-popover.sent::after {
+  right: 20px;
+}
+
+
+.reaction-popover button {
+  background: none; border: none; cursor: pointer; font-size: 1.2rem;
+  transition: transform 0.1s ease-in-out;
+}
+.reaction-popover button:hover {
+  transform: scale(1.3);
+}
+
+
+/* Base para os botões que aparecem ao lado da mensagem */
+.message-actions, .react-action-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+  background-color: var(--white-color);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: var(--base-shadow);
+  z-index: 15;
+}
+
+.message-edit-form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: stretch; /* Faz os itens internos esticarem verticalmente */
+}
+
+.message-edit-form input {
+  flex-grow: 1; /* Faz o input ocupar todo o espaço disponível */
+  border: none;
+  background-color: transparent;
+  color: inherit; /* Herda a cor do texto do balão (branco ou preto) */
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+  outline: none; /* Remove a borda azul ao focar */
+}
+
+.message-edit-form button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 8px;
+  flex-shrink: 0; /* Impede que os botões encolham */
+}
+
+/* ==============================================
+   INDICADOR DE MENSAGEM NÃO LIDA
+   ==============================================
+*/
+.unread-indicator {
+  position: absolute;
+  bottom: 18px; /* Alinha com a prévia da mensagem */
+  right: 15px;
+  background-color: #8B5CF6; /* Cor roxa fixa, como solicitado */
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 50%;
+  min-width: 22px; /* Largura mínima */
+  height: 22px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 0 0 2px var(--background-color); /* Adiciona um contorno da cor do fundo */
+  z-index: 5;
+}
+
+/* Ajuste para o item de conversa ativo, para que o indicador fique visível */
+.conversation-item.active .unread-indicator {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  background-color: var(--white);
+  color: var(--dark);
+}
+
+/* ==============================================
+   ESTILOS DO MODAL (ADICIONAR AO FINAL DO ARQUIVO)
+   ==============================================
+*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--white-color);
+  padding: 24px;
+  border-radius: var(--container-border-radius);
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--dark-text-color);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--light-text-color);
+}
+.modal-close-btn:hover {
+  color: var(--dark-text-color);
+}
+
+.attachment-options {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.attachment-option-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--item-border-radius);
+  cursor: pointer;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.attachment-option-btn:hover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light-color);
+}
+
+.attachment-option-btn span {
+  font-size: 1rem;
+}
+
+/* Estilo do botão de voltar, escondido por padrão em telas grandes */
+.back-to-conversations-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--light-text-color);
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+.back-to-conversations-btn:hover {
+    background-color: var(--border-color);
+}
+
+/* src/styles/messages.css */
+/* Adicionar este bloco ao final do arquivo */
+
+
+/* ==============================================
+   ESTILOS DO MODAL DE NOVA CONVERSA
+   ==============================================
+*/
+.modal-content h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--dark-text-color);
+}
+
+.user-search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 350px; /* Altura máxima antes de rolar */
+    overflow-y: auto;
+    margin-right: -10px; /* Compensa a barra de rolagem */
+    padding-right: 10px;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--item-border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: var(--background-color);
+}
+
+.search-result-item .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.search-result-item .user-info strong {
+    color: var(--dark-text-color);
+    font-weight: 600;
+}
+
+.search-result-item.no-results {
+    justify-content: center;
+    color: var(--light-text-color);
+    cursor: default;
+}
+.search-result-item.no-results:hover {
+    background-color: transparent;
+}
+
+
+/* Distintivo de Função (Paciente, Profissional, etc.) */
+.role-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+.role-badge.paciente {
+    background-color: rgba(59, 130, 246, 0.1); /* Azul claro */
+    color: #2563EB;
+}
+
+.role-badge.profissional {
+    background-color: rgba(22, 163, 74, 0.1); /* Verde claro */
+    color: #15803D;
+}
+
+.role-badge.admin {
+    background-color: rgba(139, 92, 246, 0.1); /* Roxo claro */
+    color: var(--primary-dark);
+}
+
+
+/* ==============================================
+   RESPONSIVIDADE
+   ==============================================
+*/
+@media (max-width: 900px) {
+    .conversations-sidebar-modern {
+        width: 280px;
+    }
+}
+@media (max-width: 768px) {
+    .messages-layout-modern {
+        margin-top: 0;
+        height: calc(100vh - 40px); 
+        border-radius: 20;
+        overflow: hidden;
+        position: relative; 
+    }
+
+    /* Ambos os filhos agora são posicionados em relação ao pai */
+    .conversations-sidebar-modern,
+    .chat-area-modern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease-in-out;
+        border-right: none;
+    }
+
+    /* Por padrão, a lista de conversas está visível */
+    .conversations-sidebar-modern {
+        transform: translateX(0);
+        z-index: 2; /* Fica na frente */
+    }
+
+    /* A área de chat começa fora da tela */
+    .chat-area-modern {
+        transform: translateX(100%);
+        z-index: 1; /* Fica atrás */
+    }
+
+    /* Quando a classe é ativada... */
+    .messages-layout-modern.chat-view-active .conversations-sidebar-modern {
+        /* A lista de conversas desliza para fora... */
+        transform: translateX(-100%);
+        z-index: 1; /* e vai para trás */
+    }
+    .messages-layout-modern.chat-view-active .chat-area-modern {
+        /* E a área de chat desliza para dentro... */
+        transform: translateX(0);
+        z-index: 2; /* e vem para frente */
+    }
+
+    /* O botão de voltar se torna visível */
+    .back-to-conversations-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .chat-header-modern {
+      margin-top: 50px;
+      padding: 10px 15px;
+    }
+
+    .sidebar-header {
+      margin-top: 50px;
+      margin-bottom: 0px;
+    }
+}

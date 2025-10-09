@@ -1,0 +1,835 @@
+/* ==========================================================================
+   Estilos para Páginas Financeiras
+   ========================================================================== */
+
+
+/* --- Estilos Base (importados de Admin.css mas com ajustes) --- */
+.admin-header h1 {
+    color: var(--black);
+    margin-bottom: 0.25rem;
+}
+
+.admin-header p {
+    color: var(--text-secondary-color);
+    font-size: 1rem;
+}
+
+.management-section {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-top: 2rem;
+    overflow: hidden; /* Garante que a tabela não ultrapasse as bordas arredondadas */
+}
+
+.management-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.management-header h2 {
+    font-size: 1.25rem;
+    color: var(--black);
+}
+
+/* --- Estilos Específicos para os Cards de KPI (StatCard) --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 32px;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-title {
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+}
+
+.stat-card-value {
+    display: block;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-top: 0.5rem;
+}
+
+/* --- Estilos para o Painel de Cobranças (AdminCobranca) --- */
+.charge-form {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-secondary-color);
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem; /* 8px */
+    font-size: 1rem;
+    color: var(--black);
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* Botão de gerar cobrança */
+.charge-form .btn-new-user {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    padding: 0.875rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+}
+
+.charge-form .btn-new-user:hover {
+    background-color: var(--primary-hover-color);
+}
+
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--text);
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #f8fafc;
+    border-color: var(--text-light);
+}
+
+/* --- Estilos para a Tabela de Transações (AdminFinanceiro) --- */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-table thead {
+    background-color: #f9fafb; /* Um fundo leve para o cabeçalho */
+}
+
+.user-table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary-color);
+}
+
+.user-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.user-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Cores para valores positivos e negativos */
+.text-positive {
+    color: var(--secondary-color) !important;
+    font-weight: 600;
+}
+
+.text-negative {
+    color: var(--danger-color) !important;
+    font-weight: 600;
+}
+
+/* Badge de status (reutilizável) */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.status-badge.completed, .status-badge.concluído, .status-badge.efetuado {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.pending, .status-badge.pendente {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* Estilos dos botões de ação na tabela de faturas */
+.user-table .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.user-table .action-buttons .btn-pay {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.user-table .action-buttons .btn-pay:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.user-table .action-buttons .btn-pay:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.user-table .action-buttons .btn-download {
+    background-color: #e2e8f0;
+    color: var(--black);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.user-table .action-buttons .btn-download:hover {
+    background-color: var(--text-secondary-color);
+    color: white;
+}
+
+/* Estilos do Modal de Pagamento (novo) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--black);
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+    color: var(--danger-color);
+}
+
+/* ========================================================== */
+/* ESTILOS MODERNIZADOS PARA O MODAL DE PAGAMENTO             */
+/* ========================================================== */
+
+/* --- Resumo da Fatura --- */
+.invoice-summary {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--background);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.summary-item {
+    text-align: center;
+}
+.summary-item span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    display: block;
+}
+.summary-item strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+
+.pix-section {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.pix-section h4, .upload-section h4 {
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* --- PIX Copia e Cola --- */
+.pix-code-display {
+    background-color: var(--background);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    word-break: break-all;
+}
+
+.pix-code-display code {
+    font-family: monospace;
+    color: var(--text);
+}
+
+.btn-copy-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    /* Estilo Secundário (Modo Claro/Colorido) */
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid transparent;
+}
+.btn-copy-main:hover {
+    filter: brightness(95%);
+}
+
+/* --- Upload de Arquivo --- */
+.file-input-hidden {
+    display: none;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+}
+.file-input-label:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.file-input-label span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Botão Principal de Upload (Modo Claro/Colorido) */
+.btn-upload {
+    width: 100%;
+    padding: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-upload:hover {
+    background-color: var(--primary-dark);
+}
+
+
+/* --- Mensagens de Status --- */
+.modal-status-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.modal-scoped-error {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.spin-animation {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-message, .error-message, .success-message {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.error-message {
+    color: var(--danger-color);
+    background-color: #fee2e2;
+}
+
+.success-message {
+    color: var(--secondary-color);
+    background-color: #d1fae5;
+}
+
+
+/* Estilos dos botões de ação na tabela de faturas */
+.user-table .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center; /* Alinha os ícones verticalmente */
+}
+
+/* NOVO ESTILO: Botão de ação genérico com ícone */
+.action-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-secondary-color);
+    padding: 0.5rem;
+    border-radius: 9999px; /* Deixa o botão circular */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f1f5f9; /* Um cinza bem claro no hover */
+    color: var(--black);
+}
+
+.action-btn:disabled {
+    color: #cbd5e1; /* Um cinza mais claro para desabilitado */
+    cursor: not-allowed;
+    background-color: transparent;
+}
+
+
+.user-table .action-buttons .btn-pay {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.status-badge.rejected {
+    background-color: #fee2e2; /* Vermelho claro */
+    color: #991b1b; /* Vermelho escuro */
+}
+
+.status-badge.cancelled {
+    background-color: #f1f5f9; /* Cinza claro */
+    color: #475569; /* Cinza escuro */
+}
+
+
+.user-table .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.action-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-secondary-color);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f1f5f9;
+    color: var(--black);
+}
+
+.action-btn:disabled {
+    color: #cbd5e1;
+    cursor: not-allowed;
+    background-color: transparent;
+}
+
+
+/* ========================================================== */
+/* ESTILOS MODERNOS PARA FILTROS (ADMINFATURAS)                 */
+/* ========================================================== */
+
+/* --- Container Geral dos Filtros --- */
+.user-controls {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os filtros quebrem a linha no mobile */
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.user-controls .search-bar {
+  flex-grow: 1;
+  min-width: 250px; /* Largura mínima para a busca */
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --- Seletor de Filtro Customizado --- */
+.custom-filter-selector {
+  position: relative;
+  min-width: 180px;
+}
+
+.filter-trigger-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-trigger-btn:hover {
+  border-color: var(--primary);
+}
+.filter-trigger-btn .chevron-icon {
+  transition: transform 0.2s;
+}
+.filter-trigger-btn .chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+.filter-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  z-index: 20;
+  padding: 6px;
+}
+
+.filter-dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.filter-dropdown-menu button:hover {
+  background-color: var(--background);
+  color: var(--primary-dark);
+}
+.filter-dropdown-menu button.active {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* --- Campos de Data Estilizados --- */
+.date-filter-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-filter-wrapper input[type="date"] {
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  padding-right: 40px; /* Espaço para o ícone */
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.date-filter-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none; /* Esconde o ícone padrão */
+}
+
+.date-filter-icon {
+  position: absolute;
+  right: 14px;
+  color: var(--text-light);
+  pointer-events: none; /* Permite que o clique atinja o input */
+}
+
+/* Animação do modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr) !important; /* Adicione !important aqui */
+        gap: 8px !important;
+        
+    }
+
+    .stats-grid {
+        display: flex;
+        overflow-x: auto; /* Habilita o scroll horizontal */
+        gap: 16px;
+        
+        /* Adiciona um preenchimento para a barra de rolagem não cortar a sombra */
+        padding-bottom: 16px; 
+        
+        /* Melhora a experiência de rolagem em dispositivos de toque */
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .stats-grid .stat-card {
+        flex-shrink: 0; /* Impede que os cards sejam espremidos */
+        width: 99%; /* Cada card ocupará 80% da largura da tela */
+        scroll-snap-align: start;
+    }
+
+    .stats-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .stat-card {
+        padding: 12px;
+        text-align: center; /* Ajuda a centralizar o conteúdo */
+    }
+
+    .stat-card > div:first-of-type {
+        flex-direction: column; /* Empilha o título e o gráfico */
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stat-card-title {
+        font-size: 0.7rem !important; /* Fonte bem pequena para o título */
+        line-height: 1.1;
+        min-height: 2.4em; /* Garante espaço para duas linhas, evitando quebra de layout */
+    }
+
+    .stat-card-value {
+        font-size: 0.9rem !important; /* Significativamente menor */
+        margin-top: 44px !important;
+    }
+
+    .stat-chart-container {
+        height: 30px !important; /* Força uma altura menor para o gráfico */
+        width: 100% !important;
+    }
+
+
+    /* AJUSTES MOBILE PARA TABELAS FINANCEIRAS       */
+    .management-section {
+        overflow-x: auto;
+    }
+
+    .user-table th,
+    .user-table td {
+        padding: 12px 8px; /* Diminui o espaçamento */
+        font-size: 0.8rem;   /* Diminui a fonte do texto */
+        white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    }
+
+    .status-badge,
+    .role-badge {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+    }
+
+    .user-table .action-btn {
+        padding: 6px; /* Torna a área do botão um pouco menor */
+    }
+
+    .user-table .action-btn svg {
+        font-size: 16px; /* Reduz o tamanho do ícone dentro do botão */        
+    }
+
+    /* MODAL DE PAGAMENTO       */
+    .modal-content {
+        padding: 1.5rem 1rem; /* Reduz o padding geral do modal */
+        max-height: 95vh; /* Garante que o modal não ultrapasse a altura da tela */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body {
+        overflow-y: auto; /* Garante a rolagem do corpo do modal se o conteúdo for grande */
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem; /* Reduz o título do modal */
+    }
+
+    /* --- Ajustes no Resumo da Fatura (Conforme Solicitado) --- */
+    .invoice-summary {
+        padding: 0.75rem;
+        flex-direction: column; /* Empilha os itens verticalmente */
+        gap: 0.75rem; /* Adiciona espaçamento entre os itens empilhados */
+    }
+
+    .summary-item strong {
+        font-size: 1.1rem; /* Reduz a fonte do valor e da data */
+    }
+
+    .summary-item span {
+        font-size: 0.8rem; /* Reduz a fonte do rótulo */
+    }
+
+    /* --- Ajustes na Seção PIX --- */
+    .pix-section {
+        grid-template-columns: 1fr; /* Muda o grid para uma única coluna */
+        gap: 1.5rem; /* Mantém um bom espaçamento vertical */
+    }
+
+    .pix-qr-section {
+        text-align: center; /* Centraliza o QR Code quando empilhado */
+    }
+
+    .pix-qr-code {
+        max-width: 160px; /* Reduz um pouco o tamanho do QR Code */
+    }
+
+    .pix-section h4, .upload-section h4 {
+        font-size: 1rem; /* Reduz o tamanho dos subtítulos das seções */
+    }
+
+    .transactions-table th:nth-child(1), /* Esconde a coluna Data (header) */
+    .transactions-table td:nth-child(1), /* Esconde a coluna Data (células) */
+
+    .transactions-table th:nth-child(2), /* Esconde a coluna Tipo (header) */
+    .transactions-table td:nth-child(2), /* Esconde a coluna Tipo (células) */
+
+    .transactions-table th:nth-child(5), /* Esconde a coluna Status (header) */
+    .transactions-table td:nth-child(5) { /* Esconde a coluna Status (células) */
+        display: none;
+    }
+
+    
+}

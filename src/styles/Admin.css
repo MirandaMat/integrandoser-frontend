@@ -1,0 +1,3455 @@
+/* src/styles/Admin.css
+
+
+/* ============================================= */
+/* VARIÁVEIS E GERAL */
+/* ============================================= */
+/*
+:root {
+  --primary: #8B5CF6;       
+  --primary-dark: #6D28D9;  
+  --primary-light: #C4B5FD; 
+  --secondary: #EC4899;     
+  --dark: #1F2937;         
+  --text: #4B5563;         
+  --text-light: #9CA3AF;   
+  --background: #F9FAFB;   
+  --white: #ffffff;
+  --border-color: #E5E7EB; 
+  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+*/
+
+/* ============================================= */
+/* ESTILO DE SELEÇÃO DE TEXTO */
+/* ============================================= */
+::selection {
+  color: #68228B;
+  background: rgba(255, 187, 255, 0.5); /* #FFBBFF com opacidade */
+}
+::-moz-selection {
+  color: #68228B;
+  background: rgba(255, 187, 255, 0.5); /* #FFBBFF com opacidade */
+}
+
+.admin-dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+/* ============================================= */
+/* SIDEBAR */
+/* ============================================= */
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--white);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: fixed;
+  height: 100%;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  margin-bottom: 40px;
+}
+
+.sidebar-logo {
+  width: 180px;
+}
+
+.admin-nav-menu ul { list-style: none; padding: 0; margin: 0; }
+.admin-nav-menu li { margin-bottom: 8px; }
+.admin-nav-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.admin-nav-menu a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+.admin-nav-menu a.active {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================= */
+/* CONTEÚDO PRINCIPAL */
+/* ============================================= */
+.admin-content {
+  flex-grow: 1;
+  margin-left: 260px;
+  padding: 32px;
+  transition: margin-left 0.3s ease;
+}
+
+/* --- Header com Perfil */
+.admin-header {
+  display: flex;
+  max-width: 1500px;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  margin-bottom: 32px;
+}
+
+.admin-header h1 { font-size: 1.8rem; font-weight: 700; color: var(--dark); }
+.admin-header p { color: var(--text-light); }
+
+.profile-section {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  
+}
+
+.profile-wrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 4px; /* espessura da borda */
+  background: linear-gradient(to right, var(--primary), var(--secondary-medium));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+.dropdown-user-info {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-user-info h4 {
+  margin: 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.dropdown-user-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.dropdown-menu {
+  list-style: none;
+  width: 400px;
+  padding: 8px 0;
+  margin: 0;
+}
+
+.dropdown-menu a, .dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 16px; /* Aumenta um pouco o padding */
+  color: #374151 !important; /* IMPORTANTE: Garante que a cor do texto seja aplicada */
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s; /* Transição mais suave */
+}
+
+.dropdown-menu svg {
+    color: #6b7280;
+}
+
+.dropdown-menu a:hover, .dropdown-menu button:hover {
+  background-color: #f9fafb;
+}
+
+/* ============================================= */
+/* DASHBOARD WIDGETS */
+/* ============================================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background-color: var(--white);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-card-icon {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-card-icon svg { width: 24px; height: 24px; }
+.stat-card-info { display: flex; flex-direction: column; }
+.stat-card-title { color: var(--text-light); font-weight: 500; font-size: 0.9rem; }
+.stat-card-value { font-size: 1.75rem; font-weight: 700; color: var(--dark); }
+
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.main-widget {
+  background-color: var(--white);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+.main-widget h3 { margin-top: 0; color: var(--dark); }
+
+.activity-list { list-style: none; padding: 0; margin: 0; }
+.activity-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.activity-list li:last-child { border-bottom: none; }
+.activity-icon {
+  width: 36px; height: 36px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+}
+.activity-icon.new-triage { background-color: #FEF3C7; color: #D97706; }
+.activity-text { flex-grow: 1; color: var(--text); }
+.activity-text strong { color: var(--dark); font-weight: 600; }
+.activity-link {
+  font-size: 0.8rem; font-weight: 600; color: var(--primary);
+  text-decoration: none;
+}
+
+.stat-card-change {
+  font-weight: 500;
+}
+
+.stat-card-change.positive {
+  color: #10b981;
+}
+
+.stat-card-change.negative {
+  color: #ef4444;
+}
+
+/* --- Seção de Gerenciamento e Formulários --- */
+.management-section {
+  background-color: var(--white);
+  padding: 24px 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+.management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.management-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin: 0;
+}
+
+.btn-new-user {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-new-user:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Tabela de Usuários --- */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 700px; /* Largura mínima para evitar quebra de layout */
+}
+
+.user-table thead {
+    background-color: var(--background);
+}
+
+
+
+.user-table th {
+  color: var(--text-light);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.user-table td {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.user-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.user-table tbody tr:hover {
+    background-color: transparent !important;
+}
+
+.triagem-list-table tbody tr:hover {
+    background-color: transparent !important;
+}
+
+
+.user-table .action-buttons {
+    display: flex;         /* Alinha os botões em linha, impedindo a quebra */
+    align-items: center;   /* Centraliza os botões verticalmente na célula */
+    gap: 8px;              /* Adiciona um espaçamento consistente entre eles */
+}
+
+.role-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.role-badge.adm { background-color: #fee2e2; color: #b91c1c; }
+.role-badge.profissional { background-color: #dbeafe; color: #1d4ed8; }
+.role-badge.paciente { background-color: #d1fae5; color: #065f46; }
+.role-badge.empresa { background-color: #fef3c7; color: #92400e; }
+
+/* --- Estilos para o Indicador de Nível de Profissional --- */
+.role-cell-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaçamento entre o badge principal e o indicador */
+}
+
+.level-indicator {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.level-indicator.habilitado {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.action-buttons button {
+    /* 1. Reset e Dimensionamento */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0; /* Resetamos o padding para controlar o tamanho com width/height */
+    width: 38px;  /* Aumenta a área de clique (círculo perfeito) */
+    height: 38px; /* Aumenta a área de clique (círculo perfeito) */
+    border-radius: 50%;
+    
+    /* 2. Alinhamento perfeito do ÍCONE DENTRO do botão */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 3. Ícones mais visíveis */
+    color: var(--text-light); 
+    font-size: 18px; /* AUMENTA o tamanho do ícone */
+
+    /* 4. Efeitos de transição */
+    transition: all 0.2s ease-in-out;
+}
+
+.action-buttons button:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark); /* Ícone fica mais forte no hover */
+    transform: scale(1.1);      /* Efeito de zoom sutil */
+}
+
+
+/* --- Estilos para Formulários --- */
+.admin-form {
+  margin-top: 20px;
+}
+
+.admin-form h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(148, 0, 211, 0.2);
+}
+
+.form-group input[readonly] {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+
+/* --- Estilos para o Modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Menos opaco para deixar o blur mais visível */
+  backdrop-filter: blur(6px); /* Aplica o desfoque */
+  -webkit-backdrop-filter: blur(6px); /* Compatibilidade com Safari */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Adicionar no final de src/Admin.css */
+
+/* --- Controles de Filtro e Busca --- */
+.user-controls {
+  display: flex;
+  flex-direction: column; /* Itens empilhados verticalmente */
+  gap: 16px; /* Espaçamento entre busca e filtros */
+  margin-bottom: 24px;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Limita a largura da barra de busca */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 16px;
+  color: var(--text-light);
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary-light);
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* Tabela de Usuários - Coluna de Nome */
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--border-color);
+}
+
+.no-results-cell {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* --- Estilos para Ações de Formulário (Salvar/Cancelar) --- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinha os botões à direita */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  background-color: #f3f4f6; /* Fundo cinza claro */
+  color: #374151; /* Texto escuro */
+  padding: 10px 16px;
+  border: 1px solid #d1d5db; /* Borda sutil */
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cancel:hover {
+  background-color: #e5e7eb; /* Escurece um pouco no hover */
+}
+
+/* --- Estilos para Mensagens de Feedback --- */
+.error-message {
+  color: #dc3545; /* Vermelho para erros */
+  margin-top: 15px;
+}
+
+.success-message {
+  color: #10b981; /* Verde para sucesso */
+  margin-top: 15px;
+}
+
+/* --- Estilo para imagem de perfil grande na página de perfil --- */
+.profile-image-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+}
+
+
+/* Estilos para o componente de Múltipla Seleção */
+.multi-select-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+    gap: 12px; /* Espaçamento entre os botões */
+    background-color: transparent; /* Remove o fundo branco */
+    border: none; /* Remove a borda antiga */
+    padding: 0; /* Remove o padding antigo */
+    max-height: none; /* Permite que o container cresça */
+    overflow-y: visible; /* Remove a barra de rolagem */
+}
+
+.multi-select-option {
+    /* Removemos os estilos antigos daqui, pois a label será o nosso "botão" */
+    padding: 0;
+    gap: 0;
+    display: block; /* Garante que a div não interfira no layout */
+}
+
+.multi-select-option:hover {
+    background-color: #f3f4f6;
+}
+
+.multi-select-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.multi-select-label {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px; /* Bordas arredondadas para o estilo de pílula/tag */
+    font-weight: 500;
+    color: var(--text);
+    background-color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none; /* Impede a seleção de texto ao clicar */
+}
+
+.multi-select-option:not(.selected) .multi-select-label:hover {
+    border-color: var(--primary-light);
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.multi-select-option.selected .multi-select-label {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+    box-shadow: 0 2px 5px rgba(109, 40, 217, 0.2);
+}
+
+/* --- Estilos do Modal de Preview de Usuário --- */
+.user-preview-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(29, 29, 29, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.user-preview-modal {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px; /* Tamanho menor para um preview */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: modalFadeIn 0.3s ease-out;
+  position: relative;
+}
+
+/* Reutilizando estilos do modal de terapeuta que você forneceu como guia */
+.user-preview-modal .modal-header {
+  display: flex;
+  padding: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  gap: 25px;
+  align-items: center;
+}
+
+.user-preview-modal .modal-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 4px solid var(--primary-light);
+}
+
+.user-preview-modal .modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-preview-modal .modal-header-content {
+  flex: 1;
+}
+
+.user-preview-modal .modal-header-content h2 {
+  margin: 0;
+  color: var(--dark);
+  font-size: 1.8rem;
+}
+
+.user-preview-modal .modal-specialty { /* Reutilizado para o email */
+  color: var(--text-light);
+  font-weight: 500;
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.user-preview-modal .modal-body {
+  padding: 20px 30px 30px;
+}
+
+.user-preview-modal .modal-section {
+  margin-bottom: 25px;
+  /* text-align: center; FOI REMOVIDO DAQUI */
+}
+
+.user-preview-modal .contact-info-section {
+  display: flex;          /* Torna o container um flexbox */
+  flex-direction: column; /* Empilha os filhos (h3 e ul) verticalmente */
+  align-items: center;    /* Centraliza os filhos horizontalmente */
+}
+
+.user-preview-modal .modal-section h3 {
+  color: var(--dark);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  display: inline-block; /* Garante que o border-bottom se ajuste ao texto */
+}
+
+.user-preview-modal .modal-section p {
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  text-align: center; /* Garante o alinhamento correto para parágrafos */
+}
+
+.user-preview-modal .modal-section li {
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+.user-preview-modal .modal-details-list {
+  list-style: none;
+  padding: 0;
+  display: flex;          /* MUDANÇA: de 'inline-flex' para 'flex' */
+  flex-direction: column;
+  align-items: center; 
+  gap: 8px;
+  margin-top: 15px; /* Adiciona um espaço entre o título e a lista */
+}
+
+
+.user-preview-modal .modal-details-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-preview-modal .modal-details-list svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.user-preview-modal .modal-approaches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.user-preview-modal .modal-approach-tag {
+  background-color: rgba(148, 0, 211, 0.1);
+  color: #5e3696; /* Dark Violet */
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.user-preview-modal .modal-contact-btn {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 35px;
+  border-radius: 8px;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.user-preview-modal .modal-contact-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+
+/* Admin.css */
+
+/* =================================================================== */
+/* COMPONENTES DE FORMULÁRIO MELHORADOS (SENHA E UPLOAD)               */
+/* =================================================================== */
+
+/* --- Campo de Senha com Ícones --- */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper .password-icon {
+    position: absolute;
+    left: 16px; /* Alinhado com o padding do input */
+    color: var(--text-light);
+    pointer-events: none; /* Garante que o clique vá para o input */
+}
+
+.password-input-wrapper .password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.password-input-wrapper .password-toggle-btn:hover {
+    color: var(--primary);
+}
+
+.password-input-wrapper .form-input {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.btn-link-style {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 10px 0;
+}
+
+.btn-link-style:hover {
+    text-decoration: underline;
+}
+
+/* --- Campo de Upload de Foto de Perfil --- */
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #f9fafb;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.image-preview-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--border-color); /* Fundo caso a imagem não carregue */
+}
+
+.upload-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.btn-upload-photo {
+    background-color: var(--white);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-upload-photo:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-remove-photo {
+    background: none;
+    border: none;
+    color: #ef4444; /* Vermelho */
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-remove-photo:hover {
+    text-decoration: underline;
+}
+
+/* =================================================================== */
+/* MELHORIAS NO FORMULÁRIO DE CONTEÚDO (BLOG, ETC.)                    */
+/* =================================================================== */
+
+/* 1. Estilo base PADRONIZADO para todos os campos (input, select, textarea) */
+.admin-form .form-group input,
+.admin-form .form-group select,
+.admin-form .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 15px;
+    font-size: 1rem;
+    color: var(--dark);
+    background-color: var(--white);
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+/* Efeito de foco PADRONIZADO para todos os campos */
+.admin-form .form-group input:focus,
+.admin-form .form-group select:focus,
+.admin-form .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* 2. Estilos específicos apenas para o TEXTAREA */
+.admin-form .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* 3. Estilos específicos para o SELECT (para customizar a seta) */
+.admin-form .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px; /* Adiciona espaço para a seta não sobrepor o texto */
+}
+
+
+
+/* 4. Estilos para o INPUT DE IMAGEM */
+.admin-form .form-group input[type="file"] {
+    font-size: 0.9rem;
+    color: var(--text);
+    border: none;
+    padding: 8px 0;
+}
+
+/* Estiliza o botão "Escolher arquivo" que faz parte do input */
+.admin-form .form-group input[type="file"]::file-selector-button {
+    background-color: var(--white);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 16px;
+    transition: var(--transition);
+}
+
+/* Efeito de hover para o botão de upload */
+.admin-form .form-group input[type="file"]::file-selector-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.admin-form .form-group select option {
+    background-color: var(--white)!important;
+    color: var(--dark)!important;
+    padding: 12px 16px; /* Observação: O padding pode não ser aplicado em todos os navegadores */
+}
+
+/* =================================================================== */
+/* AJUSTES DE LAYOUT E ESPAÇAMENTO PARA MODAL DE SERVIÇOS               */
+/* =================================================================== */
+
+/* 1. Adiciona espaçamento vertical entre todos os campos do formulário */
+.admin-form .form-group {
+    margin-bottom: 16px;
+}
+
+/* 2. Cria um grid para reorganizar os campos de 'Nome' e 'Descrição' lado a lado */
+.dynamic-sub-item .sub-item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+/* 3. Garante que o botão de remover sub-item fique alinhado com os novos campos */
+.dynamic-sub-item .btn-remove-subtle {
+    margin-top: 32px; /* Ajusta a posição vertical para alinhar com os campos que agora têm rótulos */
+}
+
+
+.file-input-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.file-name-display {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* /src/styles/Admin.css - Adicionar no final */
+
+/* =================================================================== */
+/* ESTILOS PARA AJUDANTES DE FORMULÁRIO (BOTÕES DE ATALHO)            */
+/* =================================================================== */
+
+.link-helpers {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #e5e7eb;
+}
+
+.link-helpers label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.link-helpers .helper-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.helper-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.helper-btn:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary-light);
+}
+/* ============================================= */
+/* BOTÕES GLOBAIS (APP-BTN) */
+/* ============================================= */
+.app-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+}
+
+.app-btn-primary {
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+.app-btn-primary:hover {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(148, 0, 211, 0.2);
+}
+
+.app-btn-outline {
+  background-color: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.app-btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+/* Estilo para botões dentro de um contexto com fundo escuro */
+.dark-context .app-btn-primary {
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+.dark-context .app-btn-primary:hover {
+  background-color: transparent;
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.dark-context .app-btn-outline {
+  background-color: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.dark-context .app-btn-outline:hover {
+  background-color: var(--white);
+  color: var(--primary);
+}
+/* =================================================================== */
+/* ESTILOS PADRONIZADOS PARA BLOCOS E BOTÕES DINÂMICOS                 */
+/* =================================================================== */
+
+.dynamic-block {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.dynamic-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dynamic-block-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--dark);
+}
+
+.btn-remove-block {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+.btn-remove-block:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+.dynamic-sub-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.dynamic-sub-item:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.dynamic-sub-item .form-group {
+    flex-grow: 1;
+}
+
+.btn-add-subtle {
+    background: none;
+    border: 1px dashed var(--primary);
+    color: var(--primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+.btn-add-subtle:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-remove-subtle {
+    background: #fee2e2;
+    color: #991b1b;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px; /* Alinha com o campo de texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+.btn-remove-subtle:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* =================================================================== */
+/* ESTILOS ADICIONAIS PARA NOVAS PÁGINAS (AGENDA E MENSAGENS)          */                     */
+/* =================================================================== */
+
+/* --- Estilos para a Página de Agenda do Admin (AdminAgenda.tsx) --- */
+
+.agenda-columns-container {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.agenda-column {
+  flex: 1;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda-column h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.agenda-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 60vh; /* Limita a altura para listas grandes */
+}
+
+.agenda-card {
+  background-color: var(--white);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+}
+
+.agenda-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+
+/* --- Estilos para a Página de Agenda do Paciente (PacienteAgenda.tsx) --- */
+.agenda-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.agenda-item-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #eee;
+}
+
+.agenda-item-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--dark);
+}
+
+.agenda-item-body {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.agenda-item-body p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+.agenda-item-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.agenda-item-footer {
+  padding: 8px 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.agenda-item-footer.online {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.agenda-item-footer.presencial {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+
+/* --- Estilos para a Página de Mensagens (MessagesPage.tsx) --- */
+
+.messages-layout {
+  display: flex;
+  height: calc(100vh - 160px); /* Ajuste a altura conforme necessário */
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.conversations-sidebar {
+  width: 320px;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafb;
+}
+
+.conversations-sidebar .sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.conversations-sidebar h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.conversations-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.conversation-item {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.conversation-item:hover {
+  background-color: #f0f2f5;
+}
+
+.conversation-item.active {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.conversation-item.active .conversation-preview {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.conversation-name {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.conversation-preview {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.chat-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-header h4 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.messages-container {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 70%;
+  line-height: 1.5;
+}
+
+.message.sent {
+  background-color: var(--primary);
+  color: white;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+.message.received {
+  background-color: #e5e7eb;
+  color: var(--dark);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+
+.chat-footer {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f9fafb;
+}
+
+.chat-footer input {
+  flex-grow: 1;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.chat-footer input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(148, 0, 211, 0.2);
+}
+
+.chat-footer button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.chat-footer button:hover {
+  background-color: #e5e7eb;
+}
+
+.send-btn {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+.send-btn:hover {
+  background-color: var(--primary-dark) !important;
+}
+
+.chat-footer svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* --- Estilo COMPANY --- */
+.company-agenda-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+.user-info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.user-info-item:hover {
+  background-color: #f0f2f5;
+}
+.user-info-item .user-avatar {
+  width: 50px;
+  height: 50px;
+}
+.user-info-item div {
+  display: flex;
+  flex-direction: column;
+}
+.user-role-label {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+.user-name {
+  font-weight: 600;
+  color: var(--dark);
+}
+.separator-icon {
+  color: var(--primary-light);
+  font-size: 1.5rem;
+}
+
+/* --- PROFISSIONAL --- */
+.user-avatar-large {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.professional-agenda-card {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.professional-agenda-card .clickable-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  flex-grow: 1;
+}
+.professional-agenda-card .card-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+}
+.professional-agenda-card .card-info p {
+  margin: 0;
+}
+.professional-agenda-card .card-action-btn {
+  background-color: var(--primary-light);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.professional-agenda-card .card-action-btn:hover {
+  background-color: var(--primary);
+}
+
+
+/* --- Admin --- */
+
+.admin-agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.appointment-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+.appointment-card-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+.appointment-participant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.appointment-participant img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.appointment-participant span {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.appointment-card-footer {
+  background-color: #f9fafb;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.appointment-details p {
+  margin: 0 0 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+.appointment-actions .action-btn {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.appointment-actions .edit-btn:hover {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.appointment-actions .delete-btn:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* src/styles/Admin.css - Adicionar no final */
+
+.admin-agenda-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.admin-appointment-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.admin-appointment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.card-participants {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.participant {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.participant img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.participant-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.participant-info span {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.participant-info strong {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.card-details {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-details p {
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.card-details p:last-child {
+  margin-bottom: 0;
+}
+
+.card-actions {
+  display: flex;
+  padding: 10px;
+  background-color: #f9fafb;
+}
+
+.card-actions .action-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.card-actions .edit-btn {
+  color: var(--primary-dark);
+}
+.card-actions .edit-btn:hover {
+  background-color: #f3e8ff;
+}
+
+.card-actions .delete-btn {
+  color: #ef4444;
+}
+.card-actions .delete-btn:hover {
+  background-color: #fee2e2;
+}
+
+/* Adicionar ao final de src/styles/Admin.css */
+
+/* --- Status Badge --- */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-badge.agendada { background-color: #dbeafe; color: #1e40af; }
+.status-badge.concluída { background-color: #d1fae5; color: #065f46; }
+.status-badge.cancelada { background-color: #fee2e2; color: #991b1b; }
+
+/* --- Seção de Atendimentos Futuros --- */
+.future-appointments {
+  margin-bottom: 24px;
+}
+.future-appointments-list {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px; /* Para a barra de rolagem não cortar a sombra */
+}
+.future-appointment-item {
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+}
+.future-appointment-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.future-appointment-info {
+  display: flex;
+  flex-direction: column;
+}
+.future-appointment-info strong {
+  font-weight: 600;
+}
+.future-appointment-info span {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+/* --- Ações do Card do Profissional --- */
+.card-actions-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.status-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-weight: 500;
+}
+.status-container {
+    margin-top: 10px;
+}
+
+/* --- Card de agendamento do Admin --- */
+.admin-appointment-card .card-header {
+    padding: 10px 20px;
+    background-color: #f9fafb;
+    text-align: right;
+}
+
+
+/* =================================================================== */
+/* ESTILOS MODERNOS PARA A PÁGINA DE MENSAGENS                          */
+/* =================================================================== */
+
+/* Layout Principal */
+.messages-layout-modern {
+  display: flex;
+  height: calc(100vh - 100px); /* Ajuste a altura conforme necessário */
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Barra Lateral de Conversas */
+.conversations-sidebar-modern {
+  width: 350px;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fcfcff;
+}
+.conversations-sidebar-modern .sidebar-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+.conversations-sidebar-modern .sidebar-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--dark);
+}
+.new-convo-btn {
+  background: none; border: none; cursor: pointer; color: var(--primary);
+}
+.new-convo-btn svg { width: 24px; height: 24px; }
+
+.search-bar-wrapper {
+  padding: 15px; position: relative;
+}
+.search-bar-wrapper svg {
+  position: absolute; top: 28px; left: 28px; color: #9ca3af;
+}
+.search-bar-wrapper input {
+  width: 100%; padding: 12px 12px 12px 40px; border-radius: 10px;
+  border: 1px solid #e5e7eb; background-color: #fff;
+}
+
+.conversation-list {
+  list-style: none; padding: 0 10px; margin: 0; overflow-y: auto; flex-grow: 1;
+}
+.conversation-item {
+  display: flex; align-items: center; gap: 12px; padding: 15px;
+  border-radius: 12px; cursor: pointer; transition: background-color 0.2s;
+  position: relative;
+}
+.conversation-item:hover { background-color: #f0f2f5; }
+.conversation-item.active { background-color: var(--primary); color: white; }
+.conversation-item.active .conversation-name, 
+.conversation-item.active .conversation-preview,
+.conversation-item.active .conversation-time { color: white; }
+.conversation-time {
+  position: absolute; top: 15px; right: 15px; font-size: 0.75rem; color: var(--text-light);
+}
+
+/* Área do Chat */
+.chat-area-modern {
+  flex-grow: 1; display: flex; flex-direction: column; background-color: #f9fafb;
+}
+.chat-header-modern {
+  padding: 15px 20px; border-bottom: 1px solid #f0f0f0; background: #fff;
+  display: flex; align-items: center; gap: 12px;
+}
+.header-info strong { font-size: 1.1rem; color: var(--dark); }
+.header-info span { font-size: 0.8rem; color: #10b981; }
+
+.messages-container-modern {
+  flex-grow: 1; padding: 24px; overflow-y: auto; display: flex;
+  flex-direction: column; gap: 16px;
+}
+.messages-container-modern .message {
+  position: relative;
+}
+
+/* Rodapé do Chat */
+.chat-footer-modern {
+  padding: 15px 20px; border-top: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 12px; background-color: #fff;
+}
+.footer-action-btn {
+  background: none; border: none; cursor: pointer; color: var(--text-light);
+  padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+.footer-action-btn:hover { background-color: #f0f2f5; }
+.chat-footer-modern .send-btn { background-color: var(--primary) !important; color: white !important; }
+
+/* Modal de Nova Conversa */
+.user-search-results {
+  list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto;
+}
+.search-result-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  border-radius: 8px; cursor: pointer; transition: background-color 0.2s;
+}
+.search-result-item:hover { background-color: #f0f2f5; }
+.search-result-item .user-info { display: flex; flex-direction: column; }
+.search-result-item strong { font-weight: 600; }
+
+/* Estilos para Edição Inline de Mensagem */
+.message-edit-form { display: flex; align-items: center; gap: 5px; }
+.message-edit-form input { background: #fff; border: 1px solid var(--primary); border-radius: 6px; padding: 5px; color: var(--dark); flex-grow: 1; }
+.message-edit-form button { background: var(--primary); color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+
+/* Estilos para Confirmação de Deleção */
+.delete-confirmation { position: absolute; background-color: #fff; box-shadow: var(--shadow); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 8px; z-index: 10; }
+.message.sent .delete-confirmation { left: -110px; }
+.message.received .delete-confirmation { right: -110px; }
+.delete-confirmation p { margin: 0; font-size: 0.9rem; color: var(--dark); }
+.delete-confirmation button { background: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.delete-confirmation button:first-of-type { background-color: #d1fae5; color: #065f46; }
+.delete-confirmation button:last-of-type { background-color: #fee2e2; color: #991b1b; }
+
+/* Estilos para Menu de Anexo */
+.attach-wrapper { position: relative; }
+.attach-menu { position: absolute; bottom: 100%; left: 0; background-color: #fff; box-shadow: var(--shadow); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+.attach-menu button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 0.9rem; color: var(--dark); }
+.attach-menu button:hover { background-color: #f0f2f5; }
+
+/* Adicionar no final do arquivo de CSS */
+
+.conversation-item {
+  /* ... estilos existentes ... */
+  position: relative; /* Necessário para posicionar o botão */
+}
+
+/* Nova classe para a área clicável, para não conflitar com o botão de apagar */
+.conversation-click-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+
+.delete-convo-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px;
+    border-radius: 50%;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.conversation-item:hover .delete-convo-btn {
+    opacity: 1; /* Fica visível no hover do item */
+}
+
+.delete-convo-btn:hover {
+    background-color: #fee2e2; /* Fundo vermelho claro */
+    color: #991b1b; /* Ícone vermelho escuro */
+}
+/* Adicionar no final de src/Admin.css */
+
+.message-input-wrapper {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-input-wrapper input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.attachment-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0f2f5;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.attachment-preview span {
+  font-weight: 500;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attachment-preview button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+}
+
+.message-actions, .react-action-btn {
+    position: absolute;
+    top: -10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 4px;
+    display: flex;
+    gap: 4px;
+}
+
+.message.sent .message-actions { right: 5px; }
+.message.sent .react-action-btn { left: 5px; }
+
+.message.received .message-actions { left: 5px; }
+.message.received .react-action-btn { right: 5px; }
+
+.message-actions button, .react-action-btn {
+    background: none; border: none; cursor: pointer; color: var(--text-light);
+}
+
+/* Adicionar no final do arquivo */
+.message-attachments {
+    margin-bottom: 8px;
+}
+.attachment-image {
+    max-width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.attachment-file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================= */
+/* --- ESTILOS PARA PÁGINAS FINANCEIRAS --- */
+/* Adicionar ao final de src/styles/Admin.css    */
+/* ============================================= */
+
+/* Ajuste para o StatCard com ícone */
+.stat-card .stat-card-title {
+  flex-grow: 1;
+}
+
+/* Estilos para a tabela de transações do Admin */
+.user-table .text-positive {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.user-table .text-negative {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Ajustes no header de gerenciamento para múltiplos botões */
+.management-header > div {
+  display: flex;
+  gap: 10px;
+}
+
+/* Estilos para o Card de Fatura Pendente do Paciente */
+.finance-invoice-card {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--primary-light);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+}
+
+.finance-invoice-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--dark);
+}
+
+.finance-invoice-card .invoice-description {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.finance-invoice-card .invoice-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 8px 0;
+}
+
+.finance-invoice-card .btn-pay {
+  background-color: var(--secondary);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.finance-invoice-card .btn-pay:hover {
+  background-color: #e66a1a;
+}
+
+
+/* =================================================================== */
+/* ESTILOS PARA GERENCIAMENTO DE CONTEÚDO (CARDS)                      */
+/* Adicionar ao final de src/styles/Admin.css                          */
+/* =================================================================== */
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.content-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.content-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.content-card .card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background-color: #f4f7fa;
+}
+
+.content-card .card-body {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.content-card .card-body h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: var(--dark);
+}
+
+.content-card .card-body p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.content-card .professional-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-top: 12px;
+}
+
+.content-card .professional-details span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.content-card .card-actions {
+  display: flex;
+  background-color: #f9fafb;
+  border-top: 1px solid #f0f0f0;
+}
+
+.content-card .action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #6b7280;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.content-card .action-btn.public {
+  color: #10b981; /* Verde para "Público" */
+}
+
+.content-card .action-btn.public:hover {
+  background-color: #d1fae5; /* Fundo verde claro no hover */
+}
+
+.content-card .action-btn.private {
+  color: #ef4444; /* Vermelho para "Privado" */
+}
+
+.content-card .action-btn.private:hover {
+  background-color: #fee2e2; /* Fundo vermelho claro no hover */
+}
+
+.content-card .action-btn:first-child {
+    border-right: 1px solid #f0f0f0;
+}
+
+.content-card .action-btn:hover {
+  background-color: #f0f2f5;
+  color: var(--primary);
+}
+
+.content-card .action-btn.delete:hover {
+  color: #ef4444;
+}
+
+/* =================================================================== */
+/* ESTILOS PARA FORMULÁRIOS DINÂMICOS (SERVIÇOS)                       */
+/* =================================================================== */
+
+
+.section-adder {
+  grid-column: 1 / -1;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.section-adder label {
+  font-weight: 600;
+  color: var(--dark);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-adder-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.section-adder-buttons button {
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.section-adder-buttons button:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.section-adder-buttons button:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  border-color: #d1d5db;
+}
+
+.dynamic-section-block h4 {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.dynamic-paragraph-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.dynamic-paragraph-item textarea {
+    flex-grow: 1;
+}
+
+.dynamic-section-wrapper {
+  grid-column: 1 / -1;
+  border-top: 2px solid var(--primary-light);
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.dynamic-section-wrapper h4 {
+  font-size: 1.3rem;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.dynamic-section-block {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.btn-remove-section {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.dynamic-item-block {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    position: relative;
+}
+
+.btn-remove-item {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.btn-add-item {
+    background: none;
+    border: 1px dashed var(--primary);
+    color: var(--primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+/* =================================================================== */
+/* ESTILOS PARA O EDITOR DA PÁGINA TPT                                 */
+/* =================================================================== */
+
+.tpt-editor-form {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.tpt-editor-form h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tpt-editor-form fieldset {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.tpt-editor-form legend {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    padding: 0 10px;
+}
+
+.image-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.image-preview {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.image-upload-label {
+    background-color: #f3f4f6;
+    color: #374151;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+/* src/styles/Admin.css */
+
+.offerings-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dynamic-item-block-simple {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dynamic-item-block-simple input {
+    flex-grow: 1;
+}
+
+.btn-remove-item-simple {
+    background: #fee2e2;
+    color: #991b1b;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* =================================================================== */
+/* ESTILOS PARA A PÁGINA DE TRIAGEM                                    */
+/* =================================================================== */
+
+.triagem-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.triagem-summary-card {
+  background-color: #f9fafb;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.triagem-summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-light);
+}
+
+.triagem-summary-card svg {
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.triagem-summary-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--dark);
+}
+
+.triagem-summary-card p {
+  margin: 8px 0 0 0;
+  color: var(--text);
+}
+
+.triagem-summary-card p span {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.triagem-list-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.triagem-list-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.status-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-weight: 600;
+  background-color: transparent;
+}
+.status-pendente { color: #d97706; background-color: #fef3c7; }
+.status-agendado { color: #1e40af; background-color: #dbeafe; }
+.status-confirmado { color: #065f46; background-color: #d1fae5; }
+.status-não-confirmado { color: #991b1b; background-color: #fee2e2; }
+
+
+/* Modal de Detalhes da Triagem */
+.triagem-detail-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-item {
+  background-color: #f9fafb;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.triagem-detail-modal .modal-actions {
+  display: flex;
+  gap: 15px;
+  padding: 20px 0 0 0;
+  margin-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+.btn-whatsapp, .btn-email {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+}
+.btn-whatsapp:hover {
+  background-color: #128C7E;
+}
+
+.btn-email {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+.btn-email:hover {
+  background-color: #e5e7eb;
+}
+
+/* =================================================================== */
+/* ESTILOS ADICIONAIS PARA A PÁGINA DE TRIAGEM                         */
+/* =================================================================== */
+
+.not-confirmed-header {
+    color: #b91c1c; /* Vermelho escuro */
+}
+
+.section-description {
+    margin-top: -16px;
+    margin-bottom: 24px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    max-width: 80ch;
+}
+
+.action-btn-triagem {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+    color: #9ca3af;
+    transition: color 0.2s;
+    vertical-align: middle;
+}
+
+.action-btn-triagem.delete:hover {
+    color: #b91c1c;
+}
+
+.role-badge.paciente,
+.role-badge.profissional,
+.role-badge.empresa {
+  text-transform: capitalize;
+}
+
+/* Botão de Download no Modal */
+.btn-download {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    background-color: #374151;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.btn-download:hover {
+    background-color: var(--dark);
+}
+
+/* src/styles/Admin.css */
+
+.complete-profile-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--background);
+    padding: 40px 20px;
+}
+
+.complete-profile-card {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* src/styles/Admin.css */
+
+/* --- Seção de Agendamentos na Triagem --- */
+.triagem-scheduled-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.scheduled-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--secondary); /* Destaque laranja */
+}
+
+.scheduled-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scheduled-card-header h4 {
+  margin: 0;
+  color: var(--dark);
+}
+
+.scheduled-card-body p {
+  margin: 12px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* --- Modal de Agendamento --- */
+.scheduling-modal-content {
+  /* Estilos para o modal onde o admin define a disponibilidade */
+}
+
+/* --- Página Pública de Agendamento --- */
+.schedule-appointment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.time-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.time-slot-btn {
+  padding: 15px;
+  background-color: var(--white);
+  border: 2px solid var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-slot-btn:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* src/styles/Admin.css */
+
+/* --- Seção de Agendamentos na Triagem --- */
+.triagem-scheduled-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.scheduled-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--secondary); /* Destaque laranja */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.scheduled-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.scheduled-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.scheduled-card-header h4 { margin: 0; color: var(--dark); }
+
+.scheduled-card-body p {
+  margin: 12px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* --- Botão de Agendar na Lista --- */
+.action-btn-triagem.schedule {
+    background-color: #f3e8ff;
+    color: var(--primary-dark);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.action-btn-triagem.schedule:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* --- Modal de Agendamento --- */
+.scheduling-modal .scheduling-step {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+.scheduling-modal .scheduling-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.scheduling-modal h4 {
+    margin-top: 0;
+    color: var(--primary-dark);
+}
+.scheduling-modal p {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+.link-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.link-input-group input {
+    flex-grow: 1;
+    background-color: #f9fafb;
+}
+.link-input-group svg {
+    color: var(--text-light);
+    margin-left: 10px;
+    position: absolute;
+}
+.link-input-group input[type="text"] {
+    padding-left: 35px;
+}
+
+.btn-copy {
+    padding: 10px;
+    background-color: var(--primary-light);
+    border: none;
+    border-radius: 8px;
+    color: var(--primary-dark);
+    cursor: pointer;
+}
+.btn-submit { /* Reutilizando e garantindo o estilo */
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+}
+
+/* src/styles/Admin.css */
+
+/* ============================================= */
+/* ESTILO MELHORADO PARA O MODAL DE AGENDAMENTO   */
+/* ============================================= */
+
+.scheduling-modal .modal-body {
+    padding-top: 10px;
+}
+
+.scheduling-modal .scheduling-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 30px;
+}
+
+.scheduling-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.scheduling-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(148, 0, 211, 0.3);
+}
+
+.step-content {
+    flex-grow: 1;
+}
+
+.step-content h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: var(--dark);
+}
+
+.step-content p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-width: 60ch;
+}
+
+.link-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-action.whatsapp {
+    background-color: #25D366;
+    color: white;
+}
+.btn-action.whatsapp:hover {
+    background-color: #128C7E;
+}
+
+.btn-action.email {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+.btn-action.email:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-action.copy {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+.btn-action.copy:hover {
+    background-color: #e5e7eb;
+}
+
+/* src/styles/Admin.css */
+
+/* --- Gerenciador de Disponibilidade na Agenda do Admin --- */
+.availability-manager {
+    background-color: #f9fafb;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.availability-manager h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-size: 1.2rem;
+}
+
+/* src/styles/Admin.css */
+
+.scheduled-card.pending {
+    border-left-color: #F59E0B; /* Laranja/Amarelo */
+}
+
+.scheduled-card .card-actions {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.action-btn.confirm-btn {
+    width: 100%;
+    background-color: #D1FAE5;
+    color: #065F46;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.action-btn.confirm-btn:hover {
+    background-color: #10B981;
+    color: var(--white);
+}
+
+/* src/styles/Admin.css */
+
+.scheduled-details-section {
+    background-color: #f3e8ff;
+    border: 1px solid var(--primary-light);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+.scheduled-details-section h3 {
+    margin-top: 0;
+    color: var(--primary-dark);
+}
+
+.inline-edit-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--primary-light);
+}
+
+.btn-edit-inline, .btn-save-inline {
+    width: 100%;
+    margin-top: 16px;
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid var(--primary);
+    color: var(--primary-dark);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.btn-save-inline {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* src/styles/Admin.css */
+
+.schedule-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+}
+
+.reschedule-btn {
+    background-color: #F59E0B !important; /* Laranja */
+}
+.reschedule-btn:hover {
+    background-color: #D97706 !important; /* Laranja escuro */
+}
+
+/* Adicionar ao final do arquivo */
+
+.btn-new-user.danger {
+  background-color: #ef4444; /* Vermelho */
+}
+.btn-new-user.danger:hover {
+  background-color: #b91c1c; /* Vermelho Escuro */
+}
+
+/* --- Painel de Histórico --- */
+.history-panel {
+    background-color: #f9fafb; /* Fundo um pouco diferente para destacar */
+    border: 1px solid var(--border-color);
+}
+
+.btn-action-history {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-action-history:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary);
+}
+
+.management-section .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    
+}
+.management-section .action-btn:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary-light);
+}
+
+.user-table th, .user-table td {
+  text-align: left;
+  vertical-align: middle !important;
+  border: 1px solid var(--white) !important;
+}
+
+/* ============================================= */
+/* RESPONSIVIDADE */
+/* ============================================= */
+@media (max-width: 992px) {
+  .dashboard-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajusta o padding geral e o cabeçalho */
+    .management-section {
+        margin-top: 70px !important;
+        padding: 16px;
+    }
+    .management-header {
+      margin-top: 0px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    /* Remove a largura máxima da busca para ocupar o espaço */
+    .user-controls .search-bar {
+        max-width: none;
+    }
+
+    /* 2) Reduz o tamanho dos botões de filtro e do texto interno */
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* Remove a borda do container da tabela no mobile */
+    .table-wrapper {
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Permite que a tabela encolha para o tamanho da tela */
+    .user-table {
+        min-width: auto;
+    }
+
+    /* 1) Esconde as colunas de "Email" e "Papel" */
+    .user-table:not(.transactions-table) th:nth-child(2),
+    .user-table:not(.transactions-table) td:nth-child(2),
+    .user-table:not(.transactions-table) th:nth-child(3),
+    .user-table:not(.transactions-table) td:nth-child(3) {
+        display: none;
+    }
+
+    /* Ajusta o padding de todas as células para economizar espaço */
+    .user-table th,
+    .user-table td {
+        padding: 12px 10px;
+    }
+
+    /* 1) Reduz a fonte do nome e garante a quebra de linha */
+    .user-name-cell {
+        font-size: 0.9rem;
+        white-space: normal; /* Permite que o texto quebre em várias linhas */
+        word-break: break-word; /* Força a quebra de palavras muito longas */
+    }
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Ajusta a célula e os botões de ações */
+    .action-buttons {
+        gap: 4px;
+    }
+    .action-buttons button {
+        width: 34px;
+        height: 34px;
+        font-size: 16px; /* Ícone um pouco menor */
+    }
+
+  .menu-toggle { display: block; /* Botão para abrir/fechar o menu */ }
+  
+  .admin-sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .admin-content {
+    margin-left: 0;
+    padding: 24px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================= */
+/* RESPONSIVIDADE (AJUSTES PARA MOBILE)          */
+/* ============================================= */
+
+@media (max-width: 768px) {
+
+    
+}

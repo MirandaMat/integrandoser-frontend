@@ -1,0 +1,1423 @@
+/* src/styles/general.css */
+
+/* ============================================= */
+/* VARIÁVEIS, RESET E GERAL */
+/* ============================================= */
+:root {
+  --primary: #8B5CF6;       /* Roxo principal */
+  --primary-dark: #6D28D9;  /* Roxo escuro */
+  --primary-light: #C4B5FD; /* Roxo claro */
+  --secondary: #EC4899;     /* Rosa/Pink */
+  --dark: #111827;         /* Rumo ao preto para texto forte (Contraste aumentado) */
+  --text: #374151;         /* Cinza escuro para texto principal (Contraste aumentado) */
+  --text-light: #6B7280;   /* Cinza médio para texto de apoio */
+  --background: #F9FAFB;   /* Fundo geral */
+  --white: #ffffff;
+  --border-color: #E5E7EB; /* Cor da borda */
+  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --border-radius: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ============================================= */
+/* TEMAS DA APLICAÇÃO                            */
+/* ============================================= */
+
+/* --- TEMA DARK --- */
+[data-theme="dark"] {
+  --primary: #7DD3FC;       /* Azul céu vibrante para ações principais */
+  --primary-dark: #38BDF8;  /* Azul mais forte para hover */
+  --primary-light: #0C4A6E; /* Azul escuro para fundos sutis */
+  --secondary: #A78BFA;     /* Violeta como cor de destaque secundária */
+  --dark: #F9FAFB;         /* Branco/Cinza para texto principal */
+  --text: #E5E7EB;         /* Cinza mais claro para texto secundário (Melhor Leitura) */
+  --text-light: #E5E7EB;   /* Cinza médio para texto de apoio */
+  --background: #0D1117;   /* Fundo quase preto, inspirado no GitHub */
+  --white: #161B22;        /* Fundo dos cards (cinza-azulado escuro) */
+  --border-color: #30363D; /* Cor da borda sutil */
+}
+
+/* ========================================================== */
+/* CORREÇÃO DEFINITIVA PARA BOTÕES DO MODAL DE PAGAMENTO      */
+/* (Aplica-se aos temas CLARO e COLORIDO)                     */
+/* ========================================================== */
+
+/* Força o estilo correto para o botão de upload principal */
+.modal-content .btn-upload {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+}
+.modal-content .btn-upload:hover {
+    background-color: var(--primary-dark) !important;
+}
+.modal-content .btn-upload:disabled {
+    background-color: #E5E7EB !important;
+    color: #9CA3AF !important;
+    cursor: not-allowed;
+}
+
+/* Força o estilo correto para o botão secundário de copiar PIX */
+.modal-content .btn-copy-main {
+    background-color: var(--primary-light) !important;
+    color: var(--primary-dark) !important;
+    border: 1px solid transparent !important;
+}
+.modal-content .btn-copy-main:hover {
+    filter: brightness(95%) !important;
+}
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] {
+    /* --- Widget: Agenda do Dia --- */
+
+    /* Garante que o texto principal do cabeçalho seja brilhante */
+    .todays-agenda-widget .agenda-header h3 {
+        color: var(--dark);
+    }
+    
+    /* Aumenta o contraste do texto da hora e dos detalhes */
+    .todays-agenda-widget .agenda-time,
+    .todays-agenda-widget .agenda-details strong {
+        color: var(--dark); /* Usa a cor de texto mais brilhante */
+    }
+
+    .todays-agenda-widget .agenda-details span {
+        color: var(--text); /* Usa a cor de texto secundário, que é mais clara que a padrão */
+    }
+    
+    /* Ajusta o fundo dos cards de evento para serem escuros, mas com cor */
+    .todays-agenda-widget .agenda-details.sessão {
+        background-color: rgba(125, 211, 252, 0.1); /* Fundo azul escuro translúcido */
+        border-color: var(--primary);
+    }
+    .todays-agenda-widget .agenda-details.triagem {
+        background-color: rgba(56, 189, 248, 0.1); /* Outro tom de azul escuro translúcido */
+        border-color: #38bdf8;
+    }
+
+    /* Melhora a visibilidade de eventos passados */
+    .todays-agenda-widget .agenda-item.is-past {
+        opacity: 0.65; /* Aumenta a opacidade para melhor leitura */
+    }
+    
+    /* O fundo de eventos passados precisa ser escuro também */
+    .todays-agenda-widget .agenda-item.is-past .agenda-details {
+        background-color: var(--border-color); /* Um cinza escuro sutil */
+    }
+
+    /* Garante que o texto da mensagem "Nenhum evento" seja legível */
+    .todays-agenda-widget .empty-list-message p {
+        color: var(--text);
+    }
+
+    /* Agenda */
+    .search-bar .search-input {
+        background-color: var(--white); /* Fundo escuro do card */
+        border-color: var(--border-color); /* Borda sutil */
+        color: var(--text); /* Texto claro */
+    }
+
+    .search-bar .search-input::placeholder {
+        color: var(--text-light);
+    }
+
+    .search-bar .search-icon {
+        color: var(--text-light); /* Ícone claro */
+    }
+
+    .admin-appointment-card.pending-review,
+    .professional-session-card.pending-review {
+        background-color: var(--white); 
+        border-color: #ef4444; 
+        box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); 
+    }
+
+    /* Calendario */
+    .schedule-item .item-time,
+    .schedule-item .item-details strong,
+    .schedule-item .item-details span,
+    .schedule-item .item-time svg {
+        color: var(--text); 
+    }
+
+}
+
+[data-theme="dark"] .schedule-item.type-consulta.is-past .item-time,
+[data-theme="dark"] .schedule-item.type-consulta.is-past .item-details strong,
+[data-theme="dark"] .schedule-item.type-consulta.is-past .item-details span,
+[data-theme="dark"] .schedule-item.type-consulta.is-past .item-time svg {
+    color: var(--dark) !important; /* No tema escuro, a variável --dark é branca */
+}
+
+/* ============================================= */
+/* AJUSTES DARK MODE PARA PÁGINAS FINANCEIRAS    */
+/* ============================================= */
+
+/* 1. Altera o fundo do cabeçalho da tabela para o fundo principal da página */
+[data-theme="dark"] .user-table thead {
+    background-color: var(--background);
+}
+
+
+/* 3. Define a cor do texto principal das linhas da tabela para branco/cinza claro */
+[data-theme="dark"] .user-table td {
+    color: var(--text); /* Cor de texto padrão (clara) para o tema escuro */
+}
+
+/* 4. Deixa o texto do cabeçalho um pouco mais brilhante */
+[data-theme="dark"] .user-table th {
+    color: var(--dark);
+}
+
+/* 5. Ajusta os botões de ação para terem o ícone claro e um bom efeito de hover */
+[data-theme="dark"] .user-table .action-btn {
+    color: var(--text); /* Ícone do botão fica claro */
+}
+
+[data-theme="dark"] .user-table .action-btn:hover {
+    background-color: var(--border-color); /* Fundo cinza escuro no hover */
+    color: var(--primary); /* Ícone fica azul vibrante no hover */
+}
+
+/* 6. Garante que os ícones de Aprovar/Rejeitar também fiquem claros */
+[data-theme="dark"] .user-table .action-btn svg {
+    color: inherit; /* Herda a cor do botão (seja no estado normal ou hover) */
+}
+
+/* Seleciona especificamente o botão de 'Ver Comprovante' na tabela */
+[data-theme="dark"] .user-table .action-btn[title="Ver Comprovante"] {
+    background-color: var(--text); /* Adiciona um fundo claro ao botão */
+    color: var(--background);      /* Torna o ícone escuro */
+}
+
+/* Ajusta o efeito hover para manter o contraste */
+[data-theme="dark"] .user-table .action-btn[title="Ver Comprovante"]:hover {
+    background-color: var(--dark); /* Fundo um pouco mais claro no hover */
+    color: #000;                   /* Ícone fica preto no hover */
+}
+
+
+/* =================================================================== */
+/* AJUSTES DARK MODE PARA GERENCIAMENTO DE CONTEÚDO                    */
+/* =================================================================== */
+
+/* 1. Blog*/
+[data-theme="dark"] .content-card {
+    background-color: transparent;
+    border-color: var(--border-color); 
+    box-shadow: none;                  
+}
+
+
+[data-theme="dark"] .content-card:hover {
+    background-color: var(--white); 
+    box-shadow: var(--shadow-lg);  
+}
+
+
+/* --- AJUSTES DARK MODE PARA PACIENTEFİNANCEİRO --- */
+
+/* 1. Botão 'Pagar' fica azul (cor primária do tema escuro) */
+[data-theme="dark"] .user-table .btn-pay {
+    background-color: var(--primary) !important;
+}
+
+[data-theme="dark"] .user-table .action-buttons .btn-download,
+[data-theme="dark"] .user-table .action-buttons .btn-view {
+    background-color: var(--white); /* Cor de fundo do card no tema escuro */
+    color: var(--text); /* Cor do ícone clara */
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .user-table .action-buttons .btn-download:hover,
+[data-theme="dark"] .user-table .action-buttons .btn-view:hover {
+    background-color: var(--border-color);
+}
+
+/* --- AJUSTES DARK MODE PARA PROFISSIONALFINANCEIRO --- */
+
+/* Garante que os botões de Ação com ícones também tenham fundo claro no tema escuro */
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Ver Comprovante"],
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Baixar Fatura"],
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Pagar Fatura"] {
+    background-color: var(--white); /* Cor de fundo do card */
+    color: var(--text); /* Ícone claro */
+    border: 1px solid var(--border-color);
+}
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Ver Comprovante"]:hover,
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Baixar Fatura"]:hover,
+[data-theme="dark"] .user-table .action-buttons .action-btn[title*="Pagar Fatura"]:hover {
+    background-color: var(--border-color);
+}
+
+/* --- AJUSTES DARK MODE PARA MODAL DE PAGAMENTO --- */
+[data-theme="dark"] .modal-content {
+    background-color: var(--white); /* Fundo do card */
+    border: 1px solid var(--border-color);
+}
+/* 1. Ajusta textos e bordas para branco/cores claras */
+[data-theme="dark"] .modal-header h2,
+[data-theme="dark"] .summary-item strong,
+[data-theme="dark"] .pix-section h4, 
+[data-theme="dark"] .upload-section h4 {
+    color: var(--dark); /* Cor de texto principal (clara) */
+}
+[data-theme="dark"] .modal-close-btn,
+[data-theme="dark"] .summary-item span,
+[data-theme="dark"] .pix-code-display code {
+    color: var(--text); /* Cor de texto secundária (clara) */
+}
+[data-theme="dark"] .invoice-summary,
+[data-theme="dark"] .pix-code-display,
+[data-theme="dark"] .pix-qr-code {
+    background-color: var(--background); /* Fundo principal da página (quase preto) */
+    border-color: var(--border-color);
+}
+[data-theme="dark"] .file-input-label {
+    border-color: var(--border-color);
+    color: var(--text-light);
+}
+[data-theme="dark"] .file-input-label:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 2. Botões de ação com a cor '--secondary' */
+[data-theme="dark"] .btn-copy-main,
+[data-theme="dark"] .btn-upload {
+    background-color: var(--secondary); /* Violeta, como solicitado */
+    color: #111827; /* Texto escuro para contraste */
+    border: none;
+}
+[data-theme="dark"] .btn-copy-main:hover,
+[data-theme="dark"] .btn-upload:hover {
+    background-color: var(--primary-dark);
+}
+[data-theme="dark"] .btn-upload:disabled {
+    background-color: var(--border-color);
+    color: var(--text-light);
+}
+
+/* --- AJUSTES DARK MODE PARA ADMINFINANCEIRO --- */
+[data-theme="dark"] .user-table .action-buttons .action-btn[title="Ver Detalhes"] {
+    color: var(--dark); /* Define a cor do ícone como a cor primária do tema (azul) */
+    background-color: var(--primary-light); /* Adiciona um fundo sutil azul escuro */
+}
+
+[data-theme="dark"] .user-table .action-buttons .action-btn[title="Ver Detalhes"]:hover {
+    background-color: var(--secondary); /* Adiciona um fundo sutil azul escuro no hover */
+}
+
+/* Garante que o balão de mensagem recebida tenha fundo claro e texto escuro para legibilidade */
+[data-theme="dark"] .message.received {
+    background-color: #374151; /* Cinza escuro azulado */
+    color: var(--dark); /* Texto principal claro */
+}
+
+[data-theme="dark"] .message.sent {
+    background-color: var(--secondary); /* Cinza escuro azulado */
+    color: var(--white); /* Texto principal claro */
+}
+
+/* Adicionar ao final do bloco [data-theme="dark"] */
+
+[data-theme="dark"] .message.received {
+    background-color: #374151;
+    color: var(--dark);
+}
+
+/* Garante que o popover de emojis tenha fundo branco no modo escuro */
+[data-theme="dark"] .reaction-popover {
+    background-color: #FFFFFF;
+}
+[data-theme="dark"] .reaction-popover::after {
+    border-color: transparent transparent #FFFFFF transparent;
+}
+
+/* ============================================= */
+/* AJUSTES DARK MODE PARA PÁGINA DE TRIAGEM      */
+/* Adicionar ao final de src/styles/general.css  */
+/* ============================================= */
+
+/* 1. Torna o fundo dos cards de resumo (Painel de Controle) transparente */
+[data-theme="dark"] .triagem-summary-card {
+    background-color: transparent;
+    border-color: var(--border-color); /* Garante que a borda sutil do tema escuro seja aplicada */
+}
+
+/* 2. Torna o botão 'Visualizar Contato' no histórico transparente e ajusta o ícone */
+[data-theme="dark"] .history-panel .action-btn.contact-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--primary); /* Muda a cor do ícone para a cor primária do tema escuro */
+}
+
+[data-theme="dark"] .history-panel .action-btn.contact-btn:hover {
+    background-color: var(--primary-light); /* Fundo sutil no hover */
+    color: var(--primary);
+}
+
+/* ============================================= */
+    /* AJUSTES DARK MODE PARA EDITORES DE PÁGINA     */
+/* ============================================= */
+
+[data-theme="dark"] {
+  .tpt-editor-form {
+        background-color: var(--background); /* Usa a cor de fundo geral do tema */
+        border-color: var(--border-color);   /* Usa a cor de borda geral do tema */
+    }
+
+    .tpt-editor-form h3,
+    .tpt-editor-form legend {
+        color: var(--dark); /* Garante que os títulos fiquem claros */
+    }
+    
+    .tpt-editor-form fieldset {
+        border-color: var(--border-color);
+    }
+
+    /* 1. Muda o fundo dos containers dos itens dinâmicos */
+    .dynamic-block,
+    .dynamic-item-block {
+        background-color: var(--white); /* Usa a cor de fundo do card no tema escuro */
+        border-color: var(--border-color);
+    }
+
+    /* 2. Garante que os títulos dentro desses blocos fiquem claros */
+    .dynamic-block-header h5,
+    .dynamic-item-block h4 {
+        color: var(--dark);
+        border-color: var(--border-color);
+    }
+
+    /* 3. Ajusta as cores das linhas divisórias e dos botões de atalho */
+    .dynamic-sub-item,
+    .link-helpers {
+        border-color: var(--border-color);
+    }
+
+    .helper-btn {
+        background-color: var(--background);
+        border-color: var(--border-color);
+        color: var(--text);
+    }
+
+    .helper-btn:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+    }
+
+    .form-input {
+    background-color: var(--background); /* Fundo principal da página (quase preto) */
+    color: var(--text);                 /* Texto claro */
+    border-color: var(--border-color);   /* Borda sutil */
+  }
+
+  .form-input::placeholder {
+    color: var(--text-light); /* Cor do placeholder */
+  }
+
+  .form-input:disabled {
+    background-color: var(--border-color); /* Fundo um pouco diferente para campos desabilitados */
+    opacity: 0.7;
+  }
+}
+
+/* --- TEMA COLORIDO --- */
+[data-theme="colorful"] {
+  --primary: #F97316;       /* Laranja vibrante */
+  --primary-dark: #EA580C;  /* Laranja mais escuro */
+  --primary-light: #FFEDD5; /* Laranja bem claro (pêssego) */
+  --secondary: #8B5CF6;     /* Violeta como destaque */
+  --dark: #1E293B;         /* Cinza-azulado bem escuro para texto (Contraste aumentado) */
+  --text: #475569;         /* Cinza-azulado escuro para texto (Contraste aumentado) */
+  --text-light: #94A3B8;   /* Cinza claro para apoio */
+  --background: #FFFBEB;   /* Fundo creme/amarelo claro */
+  --white: #ffffff;        /* Branco para cards */
+  --border-color: #FDE68A; /* Cor de borda mais presente (amarelo) */
+}
+
+
+.settings-page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.settings-page-container h1 {
+    color: var(--dark);
+    margin-bottom: 24px;
+}
+
+.settings-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.settings-card h2 {
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-top: 0;
+    margin-bottom: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.settings-card p.description {
+    font-size: 1rem;
+    color: var(--text);
+    margin-top: 0;
+    margin-bottom: 24px;
+    transition: color 0.3s;
+}
+
+/* --- Seção de Tema --- */
+.theme-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.theme-option {
+    padding: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.theme-option:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.theme-option.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+}
+
+.theme-option.active .theme-name {
+    color: var(--white);
+}
+
+.theme-color-swatch {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 12px;
+}
+
+.theme-color-swatch span {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.theme-name {
+    font-weight: 600;
+    color: var(--dark);
+    transition: color 0.3s;
+}
+
+
+/* ============================================= */
+/* SIDEBAR */
+/* ============================================= */
+.sidebar {
+  width: 260px;
+  background-color: var(--white);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-header {
+  margin-bottom: 40px;
+}
+
+.sidebar-logo {
+  width: 180px;
+}
+
+[data-theme="dark"] .logo-light {
+  display: none; /* Esconde a logo clara no tema escuro */
+}
+
+[data-theme="dark"] .logo-dark {
+  display: block; /* Mostra a logo escura no tema escuro */
+}
+
+/* Adicionar para controle da logo por tema */
+.logo-dark {
+  display: none; /* A logo escura fica escondida por padrão */
+}
+
+.sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
+.sidebar-nav li { margin-bottom: 8px; }
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.sidebar-nav a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+.sidebar-nav a.active {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-menu ul { list-style: none; padding: 0; margin: 0; }
+.nav-menu li { margin-bottom: 8px; }
+.nav-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-menu a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+.nav-menu a.active {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-overlay.visible {
+  display: block;
+  opacity: 1;
+}
+
+/* ============================================= */
+/* CONTEÚDO PRINCIPAL */
+/* ============================================= */
+.main-content {
+  flex-grow: 1;
+  margin-left: 260px;
+  padding: 32px;
+  transition: margin-left 0.3s ease-in-out;
+  position: relative; /* ADICIONADO: Corrige o erro do framer-motion */
+}
+
+/* --- Header --- */
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  position: sticky; /* Define o elemento como "pegajoso" */
+  top: 0; /* Posição onde ele deve "grudar" ao rolar */
+  z-index: 990; /* Garante que fique acima do conteúdo, mas abaixo do menu */
+  background-color: var(--background); /* Garante que não fique transparente sobre o conteúdo */
+  padding-top: 16px; /* Adiciona um respiro acima */
+  padding-bottom: 16px; /* Adiciona um respiro abaixo, substituindo o margin-bottom */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  margin-left: auto;
+}
+
+.header-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+/* ============================================= */
+/* SEÇÃO DO PERFIL */
+/* ============================================= */
+.profile-section {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+}
+.profile-button:hover {
+  transform: scale(1.05);
+}
+
+.header .profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+}
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-info {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+.dropdown-user-info h4 { margin: 0; font-weight: 600; color: var(--dark); }
+.dropdown-user-info p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+
+
+.dropdown-menu { 
+  list-style: none; 
+  padding: 8px 0; 
+  margin: 0; 
+}
+.dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: 0.45rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-menu svg { color: var(--text-light); }
+.dropdown-menu button:hover {
+  background-color: #f9fafb;
+  color: var(--primary);
+}
+.dropdown-menu button:hover svg {
+  color: var(--primary);
+}
+
+
+/* ============================================= */
+/* MODAL DE NOTIFICAÇÕES */
+/* ============================================= */
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  width: 45px; 
+  height: 45px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.notification-button:hover {
+  background-color: var(--primary-light);
+}
+
+.notification-button svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text);
+}
+
+
+.notifications-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  width: 380px;
+  max-height: 450px;
+  overflow-y: auto;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 1100;
+  border: 1px solid var(--border-color);
+  padding: 10px 0;
+  animation: fadeIn 0.2s ease-out;
+}
+
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+.notifications-header h4 { margin: 0; font-size: 1rem; color: var(--dark); }
+.clear-notifications-btn {
+  background: none; border: none; font-size: 0.8rem; color: var(--primary); cursor: pointer; font-weight: 500;
+}
+
+
+.clear-notifications-btn:hover { text-decoration: underline; }
+
+.notifications-list { list-style: none; padding: 0; margin: 0; }
+.notification-item {
+  padding: 15px; border-bottom: 1px solid #f9f9f9; cursor: pointer; transition: background-color 0.2s;
+}
+.notification-item:last-child { border-bottom: none; }
+.notification-item:hover { background-color: #f7f2ff; }
+.notification-item p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: var(--text); }
+.notification-item small { font-size: 0.75rem; color: var(--text-light); }
+.no-notifications { text-align: center; padding: 30px 15px; color: var(--text-light); font-size: 0.9rem; }
+
+/* ============================================= */
+/* DROPDOWN DE PERFIL (CORRIGIDO)                */
+/* ============================================= */
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  width: 320px;
+  background-color: var(--white);
+  border-radius: var(--border-radius); /* Borda arredondada padronizada */
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color); /* Borda padronizada com variável de tema */
+  z-index: 1100;
+  overflow: hidden; 
+  animation: dropdownFadeIn 0.2s ease-out forwards;
+  padding: 0;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.profile-dropdown-user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px; 
+  border-bottom: 1px solid var(--border-color); /* Linha divisória padronizada com variável de tema */
+}
+
+.profile-dropdown-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profile-dropdown-user-details {
+  min-width: 0; 
+}
+
+.profile-dropdown-user-details h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark); 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-dropdown-user-details p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-light); 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-dropdown-menu {
+  list-style: none;
+  padding: 8px; /* Espaçamento interno para os botões */
+  margin: 0;
+}
+
+.profile-dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 8px; /* CORRIGIDO: 80px era muito grande e inconsistente */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.profile-dropdown-menu svg {
+  color: var(--text-light);
+  transition: color 0.2s;
+}
+
+.profile-dropdown-menu button:hover {
+  background-color: var(--background);
+  color: var(--primary-dark);
+}
+
+.profile-dropdown-menu button:hover svg {
+  color: var(--primary-dark);
+}
+
+
+/* ============================================= */
+/* ESTILOS ESPECÍFICOS DO PERFIL                 */
+/* ============================================= */
+
+.profile-modal-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-modal-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border: 3px solid var(--primary);
+}
+
+.profile-modal-user-info h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.profile-modal-user-info p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.profile-modal-menu {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.profile-modal-menu button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.profile-modal-menu svg {
+  color: var(--text-light);
+  transition: color 0.2s;
+}
+
+.profile-modal-menu button:hover {
+  background-color: var(--background);
+  color: var(--primary-dark);
+}
+
+.profile-modal-menu button:hover svg {
+  color: var(--primary-dark);
+}
+
+/* ============================================= */
+/* PROFILE DROPDWON */
+/* ============================================= */
+/* src/styles/ProfilePage.css */
+
+.profile-page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.profile-page-container h1 {
+    color: var(--dark);
+    margin-bottom: 24px;
+}
+
+.profile-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+/* --- Cabeçalho com Avatar --- */
+.profile-header {
+    background-color: var(--background);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--white);
+    box-shadow: var(--shadow-lg);
+}
+
+.avatar-edit-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--white);
+    transition: var(--transition);
+}
+
+.avatar-edit-button:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-dark);
+}
+
+.avatar-edit-button input[type="file"] {
+    display: none;
+}
+
+.profile-header h2 {
+    margin: 0;
+    color: var(--dark);
+    font-size: 1.5rem;
+}
+
+.profile-header p {
+    margin: 4px 0 0;
+    color: var(--text-light);
+}
+
+/* --- Formulário --- */
+.profile-form {
+    padding: 32px;
+}
+
+.form-section-title {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--dark);
+    background-color: var(--white);
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.form-input:disabled {
+    background-color: var(--background);
+    color: var(--text-light);
+    cursor: not-allowed;
+    border-color: var(--border-color);
+}
+
+/* --- Botões de Ação --- */
+.profile-actions {
+    padding: 24px 32px;
+    background-color: var(--background);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #f8fafc;
+    border-color: var(--text-light);
+}
+
+/* --- Responsividade --- */
+
+
+
+/* ============================================= */
+/* RESPONSIVIDADE */
+/* ============================================= */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+.menu-toggle:hover {
+  background-color: #f0f2f5;
+}
+.menu-toggle svg {
+  width: 28px;
+  height: 28px;
+  color: var(--dark);
+  display: block;
+}
+
+/* Telas de Tablet e Mobile */
+@media (max-width: 992px) {
+  .header {
+    position: fixed; /* Muda de 'sticky' para 'fixed' */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px; /* Altura fixa para a barra de topo */
+    padding: 0 24px; /* Espaçamento horizontal interno */
+    margin-bottom: 0; /* Remove margem desnecessária */
+    justify-content: flex-end; /* Alinha os itens (actions) à direita */
+    border-bottom: 1px solid var(--border-color); /* Linha sutil de separação */
+  }
+
+
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    z-index: 1201;
+    left: 24px;
+    /* Alinha verticalmente no centro do header de 70px */
+    top: 17px; 
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 94px; /* 70px (altura do header) + 24px (espaçamento) */
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+ 
+  .main-content {
+    margin-left: 0;
+  }
+
+  .header {
+    padding-left: 68px; /* Espaço para o botão de menu fixo */
+  }
+}
+
+@media (max-width: 768px) {
+    .profile-page-container {
+        margin-top: 50px;
+        padding: 16px 8px; /* Reduz o padding lateral da página */
+    }
+
+    .profile-page-container h1 {
+        font-size: 1.6rem;
+        margin-bottom: 16px;
+    }
+
+    .profile-header {
+        padding: 24px 16px;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-header h2 {
+        font-size: 1rem;
+    }
+
+    .profile-header p {
+        font-size: 0.7rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .profile-form, .profile-actions {
+        padding: 24px;
+    }
+
+    .profile-actions {
+        padding: 16px;
+        gap: 12px;
+        flex-direction: column-reverse; /* Botão primário fica em cima */
+    }
+
+    .profile-form {
+        padding: 24px 16px;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px; /* Aumenta a área de toque */
+        font-size: 1rem;
+    }
+
+    .main-content {
+      padding: 24px;
+    }
+    .header {
+      padding-top: 5px;
+      margin-bottom: 4px;
+      padding-left: 60px;
+    }
+    .menu-toggle {
+      left: 16px;
+      top: 12px; /* (60px de header - 36px de botão) / 2 */
+    }
+    .header-actions {
+      gap: 8px;
+    }
+    .header-card-actions {
+      gap: 8px;
+    }
+    .profile-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .notification-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .notification-button svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* --- CORREÇÃO PARA O DROPDOWN NO MOBILE --- */
+    .profile-dropdown,
+    .notifications-dropdown {
+      width: calc(100vw - 32px); /* Ocupa quase toda a tela */
+      max-width: 320px;
+    }
+
+    /* Ajusta o container principal e o título */
+  .settings-page-container {
+      margin-top: 50px;
+      padding: 16px;
+  }
+  .settings-page-container h1 {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+  }
+
+  /* Compacta os cards de configuração */
+  .settings-card {
+      padding: 20px 16px;
+      margin-bottom: 24px;
+  }
+  .settings-card h2 {
+      font-size: 1rem;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+  }
+  .settings-card p.description {
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+  }
+
+  .settings-page-container .form-group label {
+      font-size: 0.85rem;
+  }
+
+  /* Ajusta o seletor de temas para um layout mais compacto */
+  .theme-selector {
+      /* Força duas colunas para não empilhar verticalmente */
+      grid-template-columns: 1fr 1fr; 
+      gap: 12px;
+  }
+  .theme-option {
+      padding: 12px;
+  }
+  .theme-name {
+      font-size: 0.85rem;
+  }
+  .theme-color-swatch span {
+      width: 20px;
+      height: 20px;
+  }
+
+  /* Garante que o botão de salvar ocupe toda a largura */
+  .settings-card .profile-actions .btn {
+      width: 100%;
+      justify-content: center;
+  }
+
+}

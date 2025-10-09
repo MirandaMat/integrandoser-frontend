@@ -1,0 +1,1023 @@
+/* src/styles/dashboard.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.dashboard-container {
+    font-family: var(--font-sans);
+}
+
+/* --- Grid Principal do Dashboard --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "welcome welcome kpi-messages"
+        "welcome welcome kpi-dreams"
+        "chart chart kpi-finance";
+    gap: 24px;
+}
+
+/* --- Widget de Boas-Vindas e Próxima Sessão --- */
+.dashboard-widget {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 20px -5px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+.dashboard-widget:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px -8px rgba(0,0,0,0.1);
+}
+
+.widget-welcome {
+    grid-area: welcome;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.widget-welcome h2 { font-size: 2rem; margin-bottom: 8px; }
+.widget-welcome .welcome-text { opacity: 0.9; }
+
+.next-appointment-details {
+    margin-top: 32px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.next-appointment-details img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--white);
+}
+.next-appointment-info strong { font-size: 1.1rem; display: block; }
+.next-appointment-info span { display: block; opacity: 0.8; }
+
+/* =============================================== */
+/* --- WIDGET AGENDA DO DIA --- */
+/* =============================================== */
+
+.todays-agenda-widget {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.agenda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+.agenda-header h3 {
+    margin: 0;
+}
+.agenda-header .widget-link {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.agenda-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-right: -10px;
+}
+
+.agenda-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+.agenda-list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.agenda-list-container::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+
+.agenda-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+.agenda-list::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background-color: var(--border-color);
+}
+
+.agenda-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 24px;
+    transition: all 0.4s ease;
+}
+
+.agenda-item::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    border: 2px solid var(--white);
+    transition: all 0.4s ease;
+}
+
+.agenda-time {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.9rem;
+    width: 50px;
+}
+
+.agenda-details {
+    flex-grow: 1;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+.agenda-details strong {
+    display: block;
+    color: var(--dark);
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+.agenda-details span {
+    color: var(--text);
+    font-size: 0.85rem;
+}
+.agenda-icon {
+    font-size: 1.5rem;
+}
+
+.agenda-details.sessão {
+    background-color: #f0eefd;
+    border-color: var(--primary);
+}
+.agenda-details.sessão .agenda-icon { color: var(--primary); }
+
+.agenda-details.triagem {
+    background-color: #e0f2fe;
+    border-color: #38bdf8;
+}
+.agenda-details.triagem .agenda-icon { color: #38bdf8; }
+
+.agenda-item.is-past {
+    opacity: 0.5;
+}
+.agenda-item.is-past .agenda-details {
+    background-color: #f3f4f6;
+    border-color: var(--border-color);
+}
+.agenda-item.is-past::before {
+    background-color: var(--text-light);
+}
+
+.agenda-item.is-current {
+    transform: scale(1.02);
+}
+.agenda-item.is-current::before {
+    background-color: var(--primary-dark);
+    transform: scale(1.4);
+}
+
+.btn-agenda {
+    margin-top: 24px;
+    background-color: var(--white);
+    color: var(--primary-dark);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* --- Widgets de KPI (Key Performance Indicator) --- */
+.widget-kpi {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+
+.widget-kpi,
+.triage-widget {
+    text-decoration: none;
+    color: inherit;
+}
+
+.widget-kpi *,
+.triage-widget * {
+    color: inherit;
+}
+
+/* Redefine as cores específicas para garantir que não se percam */
+.widget-kpi .kpi-value,
+.triage-widget h3 {
+    color: var(--dark);
+}
+
+.triage-widget .triage-value {
+    color: var(--primary-dark);
+}
+
+.widget-kpi .kpi-label,
+.triage-widget .triage-label {
+    color: var(--text-light);
+}
+
+/* Cores dos ícones */
+.kpi-revenue-widget .kpi-icon { color: #10B981; }
+.kpi-invoices-widget .kpi-icon { color: #F59E0B; }
+.kpi-messages-widget .kpi-icon { color: var(--primary); }
+
+
+.widget-kpi .kpi-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+.widget-kpi .kpi-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+.widget-kpi .kpi-label { color: var(--text-light); }
+.widget-kpi .btn-kpi {
+    margin-top: 24px;
+    background-color: var(--background);
+    color: var(--primary-dark);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+#kpi-messages { grid-area: kpi-messages; }
+#kpi-dreams { grid-area: kpi-dreams; }
+#kpi-finance { grid-area: kpi-finance; }
+
+.widget-chart {
+    grid-area: chart;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-chart h3 {
+    color: var(--dark);
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+
+/* ============================================= */
+/* DASHBOARD DA EMPRESA */
+/* ============================================= */
+
+.company-dashboard-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+        "welcome welcome kpi1 kpi2"
+        "welcome welcome kpi3 kpi4";
+}
+
+.company-dashboard-grid #welcome-widget { 
+    grid-area: welcome; 
+    min-height: 380px; 
+}
+
+.company-dashboard-grid .widget-kpi:nth-of-type(1) { grid-area: kpi1; }
+.company-dashboard-grid .widget-kpi:nth-of-type(2) { grid-area: kpi2; }
+.company-dashboard-grid .widget-kpi:nth-of-type(3) { grid-area: kpi3; }
+.company-dashboard-grid .widget-kpi:nth-of-type(4) { grid-area: kpi4; }
+
+.company-dashboard-grid .list-widget { 
+    grid-column: 1 / -1; 
+}
+
+.list-widget {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-widget h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.session-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.session-list-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.session-list-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.session-info { flex-grow: 1; }
+.session-info strong { color: var(--dark); font-weight: 600; display: block; }
+.session-info span { color: var(--text-light); font-size: 0.9rem; }
+
+.session-time {
+    font-weight: 500;
+    color: var(--primary-dark);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.widget-link {
+    margin-top: auto;
+    padding-top: 16px;
+    text-align: right;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.empty-list-message {
+    color: var(--text-light);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =================================================================== */
+/* DASHBOARD V2 (Admin) */
+/* =================================================================== */
+
+.admin-dashboard-grid-v2 {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+        "kpi-revenue kpi-invoices messages triage"
+        "chart chart revenue-chart revenue-chart"
+        "todays-agenda todays-agenda blogs blogs"
+        "testimonials testimonials testimonials testimonials";
+}
+
+.chart-widget {
+    grid-area: chart;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-widget h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    position: relative;
+    flex-grow: 1;
+    min-height: 300px;
+}
+
+.triage-widget {
+    display: flex;
+    flex-direction: column;
+}
+
+.triage-widget-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.triage-stat-item:hover {
+    background-color: #f0eefd;
+    transform: translateX(4px);
+}
+
+.triage-label {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.triage-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.triage-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--background);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-dashboard-grid-v2 .kpi-revenue-widget { grid-area: kpi-revenue; }
+.admin-dashboard-grid-v2 .kpi-invoices-widget { grid-area: kpi-invoices; }
+.admin-dashboard-grid-v2 .kpi-messages-widget { grid-area: messages; }
+.admin-dashboard-grid-v2 .chart-widget { grid-area: chart; }
+.admin-dashboard-grid-v2 .revenue-chart-widget { grid-area: revenue-chart; }
+.admin-dashboard-grid-v2 .triage-widget { grid-area: triage; }
+.admin-dashboard-grid-v2 .todays-agenda-widget { grid-area: todays-agenda; }
+.admin-dashboard-grid-v2 .recent-blogs-widget { grid-area: blogs; }
+.admin-dashboard-grid-v2 .featured-professionals-widget { grid-area: testimonials; }
+
+.kpi-revenue-widget .kpi-icon {
+    color: #10B981;
+}
+.kpi-invoices-widget .kpi-icon {
+    color: #F59E0B;
+}
+.kpi-messages-widget .kpi-icon {
+    color: var(--primary);
+}
+
+.availability-widget-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.availability-groups-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.availability-day-group {
+    width: 100%;
+}
+
+.availability-day-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.availability-slots-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.availability-slot-tag {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.availability-slot-tag:hover {
+    background-color: #bae6fd;
+}
+
+.availability-empty {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.availability-empty .status-icon,
+.availability-widget-content .status-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+.status-icon.ok { color: #10b981; }
+.status-icon.alert { color: #ef4444; }
+
+.widget-list-cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+.widget-card-item {
+    display: flex;
+    gap: 16px;
+    background-color: var(--background);
+    border-radius: 12px;
+    padding: 12px;
+}
+.widget-card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.widget-card-body {
+    display: flex;
+    flex-direction: column;
+}
+.widget-card-body h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    color: var(--dark);
+}
+.widget-card-excerpt {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.testimonial-card .widget-card-excerpt {
+    font-style: italic;
+    margin: 0 0 12px 0;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+.testimonial-card .widget-card-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.testimonial-card .widget-card-author img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonial-card .widget-card-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.widget-card-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.widget-card-author img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dashboard-widget.pending-review {
+    border: 2px solid #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+.next-appointment-details.pending .next-appointment-info span:first-child {
+    color: #ef4444;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.modal-content.pending-modal {
+    max-width: 500px;
+    text-align: center;
+}
+
+.pending-modal .modal-header {
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.pending-modal .pending-icon {
+    color: #f59e0b;
+    font-size: 3rem;
+}
+
+.pending-modal .modal-body {
+    padding: 16px 24px;
+}
+
+.pending-modal .modal-body p {
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.pending-modal .modal-actions {
+    display: flex;
+    gap: 12px;
+    padding: 24px;
+    background-color: var(--background);
+    border-top: 1px solid var(--border-color);
+}
+
+.pending-modal .btn-action {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.pending-modal .btn-action.confirm {
+    background-color: #10b981;
+    color: white;
+}
+.pending-modal .btn-action.confirm:hover {
+    background-color: #059669;
+}
+
+.pending-modal .btn-action.cancel {
+    background-color: #ef4444;
+    color: white;
+}
+.pending-modal .btn-action.cancel:hover {
+    background-color: #dc2626;
+}
+
+.professionals-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    padding-top: 10px;
+}
+
+.professional-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.professional-card:hover {
+    background-color: var(--background);
+    transform: translateY(-3px);
+}
+
+.professional-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.professional-card span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 450px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--dark);
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 4px solid var(--primary-light);
+}
+
+.modal-body h2 {
+    margin: 0 0 8px 0;
+    color: var(--dark);
+}
+
+.modal-body p {
+    margin: 4px 0;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+
+/* ============================================= */
+/* RESPONSIVIDADE    */
+/* ============================================= */
+
+/* Telas de Tablet (1200px) */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "welcome welcome"
+            "kpi-messages kpi-dreams"
+            "kpi-finance kpi-finance"
+            "chart chart";
+    }
+
+    .company-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "kpi1 kpi2"
+            "kpi3 kpi4"
+            "welcome welcome";
+    }
+    .company-dashboard-grid #welcome-widget { 
+        min-height: auto;
+    }
+
+    .admin-dashboard-grid-v2 {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "kpi-revenue kpi-invoices"
+            "messages triage"
+            "chart chart"
+            "revenue-chart revenue-chart"
+            "todays-agenda todays-agenda"
+            "blogs blogs"
+            "testimonials testimonials";
+    }
+
+    .professionals-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    .todays-agenda-widget {
+    padding: 20px; /* Reduz o preenchimento geral do widget */
+    }
+    .agenda-header h3 {
+        font-size: 1.1rem; /* Diminui o título principal */
+    }
+    .agenda-header .widget-link {
+        font-size: 0.7rem; /* Diminui o link "Ver Minha Agenda" */
+    }
+    .agenda-list {
+        padding-left: 16px; /* Reduz o espaço reservado para a linha do tempo */
+    }
+    .agenda-item::before {
+        left: -12px; /* Ajusta a posição da bolinha da timeline */
+    }
+    .agenda-time {
+        font-size: 0.7rem; /* Diminui o texto da hora */
+        width: 20px;
+    }
+    .agenda-details {
+        padding: 10px; /* Reduz o preenchimento do card do evento */
+    }
+    .agenda-details strong {
+        font-size: 0.85rem; /* Diminui o título do evento */
+    }
+    .agenda-details span {
+        font-size: 0.7rem; /* Diminui o subtítulo/nomes */
+    }
+    .agenda-details .agenda-icon {
+        font-size: 1.3rem; /* Diminui o ícone */
+    }
+}
+
+/* Telas de Celular (768px) */
+@media (max-width: 768px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "welcome welcome"
+            "kpi-messages kpi-dreams"
+            "kpi-finance kpi-finance"
+            "chart chart";
+        gap: 16px;
+    }
+
+    .widget-welcome h2 { font-size: 1.5rem; }
+    .next-appointment-details { flex-direction: column; text-align: center; }
+
+    .company-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        /* Define explicitamente a ordem: 2x2 KPIs em cima, welcome embaixo */
+        grid-template-areas:
+            "kpi1 kpi2"
+            "kpi3 kpi4"
+            "welcome welcome";
+    }
+    
+    .admin-dashboard-grid-v2 {
+        grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
+        gap: 16px;
+    }
+
+    /* Garante que os KPIs e a Triagem ocupem uma célula cada (formando o 2x2) */
+    .admin-dashboard-grid-v2 .widget-kpi,
+    .admin-dashboard-grid-v2 .triage-widget {
+        grid-column: auto;
+    }
+    
+    /* Faz os cards restantes ocuparem a largura total (as duas colunas) */
+    .admin-dashboard-grid-v2 .chart-widget,
+    .admin-dashboard-grid-v2 .revenue-chart-widget,
+    .admin-dashboard-grid-v2 .todays-agenda-widget,
+    .admin-dashboard-grid-v2 .recent-blogs-widget,
+    .admin-dashboard-grid-v2 .featured-professionals-widget {
+        grid-column: 1 / -1; 
+    }
+
+    .widget-kpi, .triage-widget {
+        padding: 16px;
+        text-align: center;
+        text-decoration: none; /* ESSENCIAL: Remove o sublinhado do link */
+        color: inherit; /* ESSENCIAL: Faz o texto herdar a cor, em vez do azul padrão de link */
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .widget-kpi:hover, .triage-widget:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    /* Garante que os textos dentro do link herdem a cor corretamente */
+    .widget-kpi *, .triage-widget * {
+      color: inherit;
+    }
+
+    .widget-kpi .kpi-icon {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        color: var(--primary); /* Redefine a cor do ícone que pode ter sido perdida */
+    }
+    .kpi-revenue-widget .kpi-icon { color: #10B981; }
+    .kpi-invoices-widget .kpi-icon { color: #F59E0B; }
+    
+    .widget-kpi .kpi-value {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: var(--dark); /* Redefine a cor do valor */
+    }
+    
+    .widget-kpi .kpi-title {
+        font-size: 0.8rem;
+        color: var(--text-light); /* Redefine a cor do título */
+    }
+    
+    .widget-kpi .btn-kpi {
+        display: none;
+    }
+    
+    .triage-widget h3 {
+        font-size: 1.1rem;
+        text-align: center;
+        color: var(--dark); /* Redefine a cor do título */
+    }
+    .triage-widget .triage-stat-item {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        background: none;
+        border: none;
+    }
+    .triage-widget .triage-label {
+        font-size: 0.8rem;
+        color: var(--text); /* Redefine a cor */
+    }
+    .triage-widget .triage-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-dark); /* Redefine a cor */
+    }
+
+    .professionals-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .professional-card img {
+      width: 80px;
+      height: 80px;
+    }
+}
+
+/* Telas de Celular Pequenas (480px) */

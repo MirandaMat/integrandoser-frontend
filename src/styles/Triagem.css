@@ -1,0 +1,841 @@
+/* src/styles/Triagem.css */
+
+/* --- Estilos Base --- */
+.admin-header h1 { color: var(--text-primary-color); margin-bottom: 0.25rem; }
+.admin-header p { color: var(--text-secondary-color); font-size: 1rem; }
+
+.management-section {
+    background-color: var(--card-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+.management-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.management-header h2 { font-size: 1.25rem; color: var(--text-primary-color); }
+
+.not-confirmed-header h2 {
+    color: #b91c1c; /* Vermelho escuro */
+}
+
+.section-description {
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* --- Cards de KPI (StatCard) --- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.stat-card { background-color: var(--card-background-color); border-radius: var(--border-radius); box-shadow: var(--card-shadow); padding: 1.5rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
+.stat-card-title { font-weight: 600; color: var(--text-secondary-color); font-size: 0.9rem; }
+.stat-card-value { display: block; font-size: 2.25rem; font-weight: 700; color: var(--text-primary-color); margin-top: 0.5rem; }
+
+/* --- Tabelas --- */
+.user-table { width: 100%; border-collapse: collapse; }
+.user-table th, .user-table td { padding: 1rem 1.5rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+.user-table thead { background-color: #f9fafb; }
+.user-table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary-color); }
+.user-table tbody tr:last-child td { border-bottom: none; }
+.user-table tbody tr:hover { background-color: #f9fafb; }
+
+.text-positive { color: var(--secondary-color) !important; font-weight: 600; }
+.text-negative { color: var(--danger-color) !important; font-weight: 600; }
+
+.status-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; text-transform: capitalize; }
+.status-badge.completed, .status-badge.concluído, .status-badge.efetuado { background-color: #d1fae5; color: #065f46; }
+.status-badge.pending, .status-badge.pendente { background-color: #fef3c7; color: #92400e; }
+
+.user-table .action-buttons { display: flex; gap: 0.5rem; }
+.user-table .action-buttons .btn-pay { display: flex; align-items: center; gap: 0.25rem; background-color: var(--primary-color); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; transition: background-color 0.2s; }
+.user-table .action-buttons .btn-pay:hover { background-color: var(--primary-hover-color); }
+.user-table .action-buttons .btn-pay:disabled { background-color: #ccc; cursor: not-allowed; }
+.user-table .action-buttons .btn-download { background-color: #e2e8f0; color: var(--text-primary-color); padding: 0.5rem; border-radius: 0.5rem; transition: background-color 0.2s, color 0.2s; }
+.user-table .action-buttons .btn-download:hover { background-color: var(--text-secondary-color); color: white; }
+
+/* ============================================= */
+/* MODAIS (DETALHES E AGENDAMENTO)               */
+/* ============================================= */
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(30, 41, 59, 0.5);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--white);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.modal-header h2 { font-size: 1.5rem; color: var(--text-primary-color); }
+.modal-close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-secondary-color); cursor: pointer; transition: color 0.2s; }
+.modal-close-btn:hover { color: var(--danger-color); }
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* --- Resumo da Fatura --- */
+.invoice-summary {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.summary-item span { display: block; color: var(--text-secondary-color); font-size: 0.9rem; margin-bottom: 0.25rem; }
+.summary-item strong { display: block; font-size: 1.5rem; font-weight: 700; color: var(--text-primary-color); }
+
+/* --- Seção PIX --- */
+.pix-section { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+.pix-qr-section, .pix-manual-payment { text-align: center; }
+.pix-qr-section h4, .pix-manual-payment h4 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-primary-color); }
+.pix-qr-code { display: block; margin: 0 auto; max-width: 200px; border-radius: var(--border-radius); padding: 0.5rem; border: 1px solid var(--border-color); }
+
+.pix-code-display {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    word-break: break-all;
+    text-align: left;
+    max-height: 110px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: var(--text-secondary-color);
+}
+
+.btn-copy-main {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-copy-main:hover { background-color: var(--secondary-hover-color); }
+
+/* --- Seção de Upload --- */
+.upload-section { border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1.5rem; }
+.upload-section h4 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary-color); }
+.file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+.file-input-label:hover { border-color: var(--primary-color); background-color: #f6f6fe; }
+.file-input-label span { color: var(--text-secondary-color); }
+.file-input-hidden { display: none; }
+
+.btn-upload {
+    width: 100%;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 0.875rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+.btn-upload:hover { background-color: var(--primary-hover-color); }
+.btn-upload:disabled { background-color: #ccc; cursor: not-allowed; opacity: 0.7; }
+
+/* --- Indicadores de Status (Loading, Erro, Sucesso) --- */
+.modal-status-indicator { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+.modal-status-indicator p { font-size: 1.1rem; margin-top: 1rem; color: var(--text-secondary-color); }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spin-animation { animation: spin 1s linear infinite; }
+
+.error-message { color: var(--danger-color); background-color: #fee2e2; padding: 0.75rem; border-radius: 0.5rem; }
+.success-message { color: var(--secondary-color); background-color: #d1fae5; padding: 0.75rem; border-radius: 0.5rem; }
+.modal-scoped-error { margin-top: 1rem; text-align: center; }
+
+/* Animação do modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .admin-header h1 { font-size: 1.5rem; }
+    .management-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .user-table { display: block; overflow-x: auto; white-space: nowrap; }
+    .action-buttons { flex-direction: column; gap: 0.25rem; }
+    
+    /* Ajustes específicos do Modal */
+    .pix-section {
+        grid-template-columns: 1fr; /* Empilha as colunas */
+        gap: 1.5rem;
+    }
+    .modal-header h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* ...existing styles... */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+    min-width: 320px;
+    max-width: 480px;
+    box-shadow: 0 4px 24px #0003;
+    position: relative;
+}
+.close-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn-detalhes, .btn-cobrar {
+    padding: 6px 14px;
+    margin-right: 8px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-detalhes {
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #a5b4fc;
+}
+.btn-detalhes:hover {
+    background: #c7d2fe;
+}
+.btn-cobrar {
+    background: #10b981;
+    color: #fff;
+    border: 1px solid #059669;
+}
+.btn-cobrar:hover {
+    background: #059669;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+    min-width: 320px;
+    max-width: 480px;
+    box-shadow: 0 4px 24px #0003;
+    position: relative;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+
+/* ============================================= */
+/* CARDS DE RESUMO (SUMMARY)                     */
+/* ============================================= */
+
+
+.triagem-summary-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.role-badge.paciente { background-color: #d1fae5; color: #065f46; }
+.role-badge.profissional { background-color: #dbeafe; color: #1d4ed8; }
+.role-badge.empresa { background-color: #fef3c7; color: #92400e; }
+
+
+.triagem-summary-card::after {
+    content: '→';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.5rem;
+    color: var(--primary-light);
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.triagem-summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.triagem-summary-card svg { color: var(--primary); margin-bottom: 12px; }
+.triagem-summary-card h3 { margin: 0; font-size: 1.3rem; color: var(--dark); }
+.triagem-summary-card p { margin: 8px 0 0 0; color: var(--text); font-size: 1rem; }
+.triagem-summary-card p span { font-size: 2.2rem; font-weight: 700; color: var(--primary-dark); }
+
+
+.triagem-summary-card:hover::after {
+    opacity: 1;
+    transform: translateX(-5px);
+}
+
+.triagem-summary-card svg {
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.triagem-summary-card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--dark);
+}
+
+.triagem-summary-card p {
+    margin: 8px 0 0 0;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.triagem-summary-card p span {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    display: block; /* Garante que o número fique em sua própria linha */
+    line-height: 1.2;
+}
+
+
+
+/* ============================================= */
+/* MENU DE AÇÕES (NÃO CONFIRMADOS)               */
+/* ============================================= */
+
+.actions-dropdown-container {
+  position: relative;
+  display: inline-block; /* Garante que o menu se posicione corretamente */
+}
+
+
+.actions-dropdown-container .action-btn-triagem {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    color: var(--text);
+    display: flex;
+    align-items: center; /* Alinha ícone e texto verticalmente */
+    justify-content: space-between; /* Joga o ícone para a direita */
+    width: 150px; /* Uma largura mais adequada para a tabela */
+    padding: 8px 12px;
+    font-weight: 500;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.actions-dropdown-container .action-btn-triagem:hover {
+    border-color: var(--primary);
+    background-color: var(--background);
+}
+
+/* 3. Menu suspenso (dropdown) */
+.actions-dropdown-menu {
+  /* --- Propriedades existentes --- */
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+  overflow: hidden;
+  padding: 6px;
+  animation: fadeInDropdown 0.2s ease-out;
+  
+  /* --- AJUSTES E CORREÇÕES --- */
+  min-width: 230px; /* Garante que o menu tenha uma largura mínima para o texto */
+  width: auto;      /* Permite que a largura se ajuste ao conteúdo */
+  display: flex;
+  flex-direction: column; /* ESSENCIAL: Força os botões a empilharem verticalmente */
+  gap: 4px;         /* Opcional: Adiciona um pequeno espaço entre os botões */
+}
+
+/* 4. Itens dentro do menu */
+.actions-dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap; /* Impede que o texto quebre em duas linhas */
+}
+
+.actions-dropdown-menu button:hover svg {
+    color: inherit;
+}
+
+/* 5. Estilos específicos para os botões "Mover" e "Apagar" */
+.actions-dropdown-menu .move-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.actions-dropdown-menu .delete-btn {
+  color: #b91c1c; /* Vermelho escuro */
+}
+
+.actions-dropdown-menu .delete-btn:hover {
+  background-color: #fee2e2; /* Fundo vermelho claro */
+  color: #991b1b;
+}
+
+@keyframes fadeInDropdown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================= */
+/* PAINEL DE HISTÓRICO (ARQUIVO)                 */
+/* ============================================= */
+
+.history-panel {
+    background-color: #fdfdff;
+}
+
+.history-panel .header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.history-panel .btn-action-history {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.history-panel .btn-action-history:hover {
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+
+.history-panel .action-btn.contact-btn {
+  background-color: var(--primary); /* Cor de fundo roxa */
+  color: var(--white); /* Ícone branco */
+  border: none;
+  cursor: pointer;
+  padding: 8px; /* Espaçamento interno */
+  border-radius: 50%; /* Deixa o botão perfeitamente circular */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.history-panel .action-btn.contact-btn:hover {
+  background-color: var(--primary-dark); /* Escurece no hover para dar feedback */
+}
+
+.history-panel .action-btn.contact-btn svg {
+  width: 20px; /* Tamanho do ícone ajustado */
+  height: 20px;
+}
+
+.history-panel .action-btn.view-contact-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+
+
+/* ============================================= */
+/* TABELAS (LISTA PENDENTE E NÃO CONFIRMADOS) */
+/* ============================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.triagem-list-table { width: 100%; border-collapse: collapse; }
+.triagem-list-table th, .triagem-list-table td { padding: 1rem 1.5rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+.triagem-list-table thead { background-color: #f9fafb; }
+.triagem-list-table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary-color); }
+.triagem-list-table tbody tr { cursor: pointer; transition: background-color 0.2s; }
+.triagem-list-table tbody tr:hover { background-color: #f8f5ff; }
+
+.triagem-list-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.triagem-list-table tbody tr:hover {
+    background-color: #f8f5ff; /* Um roxo bem claro no hover */
+}
+
+/* Célula de ações com múltiplos botões */
+.actions-cell {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botão genérico de ação na tabela de triagem */
+.action-btn-triagem {
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.action-btn-triagem.schedule {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+.action-btn-triagem.schedule:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.action-btn-triagem.confirm {
+    background-color: #D1FAE5; /* Verde claro */
+    color: #065F46; /* Verde escuro */
+}
+.action-btn-triagem.confirm:hover {
+    background-color: #10B981;
+    color: var(--white);
+}
+
+.action-btn-triagem.delete {
+    background-color: #FEE2E2; /* Vermelho claro */
+    color: #991B1B; /* Vermelho escuro */
+}
+.action-btn-triagem.delete:hover {
+    background-color: #EF4444;
+    color: var(--white);
+}
+
+/* src/styles/Triagem.css - ADICIONAR NO FINAL */
+
+/* ============================================= */
+/* BOTÕES DE AÇÃO (MOVER E APAGAR) NA TABELA     */
+/* ============================================= */
+
+/* 1. Estilo base para os botões de ícone na célula de ações */
+.triagem-list-table .actions-cell .action-btn-triagem {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: var(--text-light); 
+    font-size: 16px;
+
+    transition: all 0.2s ease-in-out;
+}
+
+/* 2. Efeito de hover para o botão de mover */
+.triagem-list-table .actions-cell .action-btn-triagem.move:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+/* 3. Efeito de hover de alerta para o botão de apagar */
+.triagem-list-table .actions-cell .action-btn-triagem.delete:hover {
+    background-color: #fee2e2; /* Fundo vermelho claro */
+    color: #b91c1c;      /* Ícone vermelho escuro */
+    transform: scale(1.1);
+}
+
+/* ============================================= */
+/* SEÇÕES DE AGENDAMENTO (PENDENTES E CONFIRMADOS) */
+/* ============================================= */
+.triagem-scheduled-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.scheduled-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+.scheduled-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.scheduled-card-clickable-area {
+    padding: 20px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.scheduled-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.scheduled-card-header h4 { margin: 0; color: var(--dark); }
+
+.scheduled-card-body p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Destaques visuais por status */
+.scheduled-card.pending {
+    border-left: 5px solid #F59E0B;
+    max-width: 350px !important; 
+}
+.scheduled-card.confirmed { border-left: 5px solid #10B981; } /* Verde para confirmado */
+
+/* ============================================= */
+/* MODAL DE DETALHES DA TRIAGEM (TriagemDetailModal) */
+/* ============================================= */
+.triagem-detail-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    background-color: #f9fafb;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+/* Seção de detalhes do agendamento dentro do modal */
+.scheduled-details-section {
+    background-color: #f8f5ff;
+    border: 1px solid var(--primary-light);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+.scheduled-details-section h3 { margin-top: 0; color: var(--primary-dark); }
+
+.inline-edit-input, .schedule-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    font-size: 1rem;
+    color: var(--dark);
+}
+
+.btn-edit-inline, .btn-save-inline {
+    width: 100%;
+    margin-top: 16px;
+    border: 1px solid var(--primary);
+    color: var(--primary-dark);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+
+/* ============================================= */
+/* RESPONSIVIDADE (TELAS MENORES)                */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* 1. Ajusta o grid do Painel de Controle para scroll horizontal */
+    .triagem-summary-grid {
+        display: grid;
+        gap: 12px;
+        padding-bottom: 16px; 
+
+        /* --- CORREÇÃO DEFINITIVA --- */
+        grid-template-columns: none;      /* 1. Reseta a definição de colunas original */
+        grid-auto-flow: column;           /* 2. Força o layout a ser horizontal */
+        grid-auto-columns: 150px;         /* 3. Define uma largura FIXA e IGUAL para todos os cards */
+        
+        overflow-x: auto;       
+        -webkit-overflow-scrolling: touch; 
+        scroll-snap-type: x mandatory;
+    }
+
+    /* Opcional: Faz o scroll "travar" suavemente em cada card */
+    .triagem-summary-grid {
+        scroll-snap-type: x mandatory;
+    }
+    .triagem-summary-card {
+        scroll-snap-align: start;
+    }
+
+    /* Ajusta o padding e as fontes dos cards para o novo tamanho mais fino */
+    .triagem-summary-card {
+        /* AJUSTADO: Padding interno reduzido para dar mais espaço ao texto */
+        padding: 10px;
+    }
+
+    .triagem-summary-card h3 {
+        /* AJUSTADO: Fonte do título reduzida */
+        font-size: 1rem;
+    }
+
+    .triagem-summary-card p {
+        font-size: 0.8rem;
+        margin-top: 4px;
+    }
+
+    .management-section {
+        margin-top: 1.2rem !important; 
+    }
+
+    .triagem-summary-card p span {
+        /* AJUSTADO: Fonte do número principal reduzida para caber no card */
+        font-size: 1.6rem;
+    }
+}

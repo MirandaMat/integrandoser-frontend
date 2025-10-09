@@ -1,0 +1,244 @@
+/* ============================================= */
+/* CENTRAL DE NOTIFICAÇÕES */
+/* ============================================= */
+
+/* --- Ícone de Sino e Badge --- */
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+  color: var(--text-light); /* Cor padrão do sino */
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+.notification-bell:hover {
+  color: var(--primary);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #ef4444; /* Vermelho para destaque */
+  color: var(--white);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--white);
+}
+
+/* --- Dropdown da Lista de Notificações --- */
+.notifications-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  width: 350px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  z-index: 1010;
+  border: 1px solid #f0f0f0;
+  padding: 10px 0;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notifications-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.clear-notifications-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.clear-notifications-btn:hover {
+  text-decoration: underline;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  padding: 15px;
+  border-bottom: 1px solid #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.notification-item:hover {
+  background-color: #f7f2ff; /* Roxo bem claro */
+}
+.notification-item.is-read {
+  opacity: 0.6;
+}
+.notification-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+.notification-item small {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.notification-item-content {
+  display: flex;
+  align-items: center;
+}
+.no-notifications {
+    text-align: center;
+    padding: 30px 15px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+
+/* --- Banner/Toast de Notificação --- */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutToRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+.notification-toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 320px;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  padding: 15px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-left: 5px solid var(--primary);
+  animation: slideInFromRight 0.5s ease-out forwards;
+}
+
+.notification-toast.exiting {
+  animation: slideOutToRight 0.5s ease-in forwards;
+}
+
+.toast-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.toast-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.toast-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  color: var(--text-light);
+  padding: 5px;
+}
+
+/* src/pages/modal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(29, 41, 55, 0.7); /* Usando --dark com opacidade */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px; /* Largura padrão, pode ser sobrescrita se necessário */
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E7EB; /* --border-color */
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1F2937; /* --dark */
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9CA3AF; /* --text-light */
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+.modal-close-btn:hover {
+  background-color: #f3f4f6;
+  color: #1F2937; /* --dark */
+}
+
+.modal-body {
+  color: #4B5563; /* --text */
+}

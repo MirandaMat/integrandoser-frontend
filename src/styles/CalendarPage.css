@@ -1,0 +1,347 @@
+/* src/styles/CalendarPage.css */
+
+/* Importa variáveis para consistência */
+@import url('./Agenda.css');
+
+.calendar-page-container {
+  display: flex;
+  gap: 32px;
+  height: calc(100vh - 120px); /* Ajustar altura conforme seu layout */
+  padding: 20px;
+  background-color: var(--background);
+}
+
+/* ============================================= */
+/* VISÃO MENSAL (CALENDÁRIO)                      */
+/* ============================================= */
+.calendar-view {
+  flex: 3;
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.calendar-header h2 {
+  color: var(--dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+.nav-btn:hover {
+  background-color: var(--background);
+}
+.nav-btn svg {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.days-of-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.day-cell {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 90px;
+}
+.day-cell:not(.disabled):hover {
+  border-color: var(--primary);
+  background-color: #f7f3ff;
+}
+.day-cell.disabled {
+  background-color: var(--background);
+  opacity: 0.6;
+  cursor: default;
+}
+.day-cell.today {
+  border: 2px solid var(--secondary);
+}
+.day-cell.selected {
+  background-color: var(--primary-light);
+  color: var(--white);
+  border-color: var(--primary-dark);
+}
+.day-cell.selected .day-number {
+  color: var(--primary);
+}
+
+.day-number {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.event-dots {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.event-dots .dot {
+  font-size: 0.6rem;
+}
+.dot.consulta { 
+    color: var(--primary); 
+    fill: var(--primary); /* Adicionado para preencher a cor */
+}
+.dot.triagem { 
+    color: var(--secondary); 
+    fill: var(--secondary); /* Adicionado para preencher a cor */
+}
+.dot.disponivel { 
+    color: #34d399; 
+    fill: #34d399; /* Adicionado para preencher a cor */
+}
+
+
+/* ============================================= */
+/* VISÃO DIÁRIA (AGENDA DO DIA)                   */
+/* ============================================= */
+.schedule-view {
+  flex: 2;
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.schedule-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+.schedule-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--dark);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.schedule-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.schedule-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border-left: 4px solid;
+}
+
+
+.schedule-item {
+  position: relative; 
+  align-items: center; 
+}
+
+.item-details {
+  flex-grow: 1; /* Faz os detalhes ocuparem o espaço disponível */
+}
+
+.schedule-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Mostra os botões quando o mouse passa sobre o item da agenda */
+.schedule-item:hover .schedule-item-actions {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.schedule-item-actions .action-btn-calendar {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+}
+
+.schedule-item-actions .action-btn-calendar:hover {
+  background-color: var(--border-color);
+  color: var(--primary-dark);
+}
+
+.schedule-item-actions .action-btn-calendar.delete:hover {
+  background-color: #fee2e2; /* Fundo vermelho claro */
+  color: #b91c1c; /* Ícone vermelho escuro */
+}
+
+.item-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.item-details strong {
+  font-weight: 600;
+  color: var(--dark);
+}
+.item-details span {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.item-status-badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* Cores por Status */
+.status-agendada, .status-confirmado { border-color: #60a5fa; background-color: #eff6ff; }
+.status-badge-agendada, .status-badge-confirmado { background-color: #dbeafe; color: #1e40af; }
+
+.status-concluida { border-color: #c7d2fe; background-color: #eef2ff; }
+.status-badge-concluida { background-color: #e0e7ff; color: #4338ca; }
+
+.status-cancelada { border-color: #f87171; background-color: #fef2f2; }
+.status-badge-cancelada { background-color: #fee2e2; color: #991b1b; }
+
+.status-pendente { border-color: #facc15; background-color: #fefce8; }
+.status-badge-pendente { background-color: #fef9c3; color: #854d0e; }
+
+.status-disponível { border-color: #34d399; background-color: #ecfdf5; }
+.status-badge-disponível { background-color: #d1fae5; color: #047857; }
+
+.no-events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--text-light);
+}
+.no-events svg {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+/* ============================================= */
+/* CORREÇÃO DE CONTRASTE P/ TODOS OS TEMAS        */
+/* ============================================= */
+/* Força a cor do texto para um tom escuro dentro dos itens da agenda,
+   garantindo legibilidade em fundos claros, independentemente do tema. */
+.schedule-item .item-time,
+.schedule-item .item-details strong,
+.schedule-item .item-details span,
+.schedule-item .item-time svg,
+.schedule-item .schedule-item-actions .action-btn-calendar {
+    color: #1f2937 !important; /* Cinza bem escuro, quase preto */
+}
+
+/* Garante que a cor do hover nos botões também seja escura */
+.schedule-item .schedule-item-actions .action-btn-calendar:hover {
+    color: #000000 !important;
+}
+
+/* Garante que o ícone de exclusão fique vermelho no hover */
+.schedule-item .schedule-item-actions .action-btn-calendar.delete:hover {
+  background-color: #fee2e2 !important; /* Fundo vermelho claro */
+  color: #b91c1c !important; /* Ícone vermelho escuro */
+}
+
+/* ============================================= */
+/* RESPONSIVIDADE                                 */
+/* ============================================= */
+@media (max-width: 1024px) {
+  .calendar-page-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .calendar-view, .schedule-view {
+    flex: 1;
+    min-height: 500px; /* Garante altura mínima */
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-page-container {
+    padding: 10px;
+  }
+  .calendar-view, .schedule-view {
+    padding: 16px;
+  }
+  .calendar-header h2 {
+    font-size: 1.2rem;
+  }
+  .day-cell {
+    padding: 4px;
+    min-height: 60px;
+  }
+  .event-dots {
+    justify-content: center;
+  }
+  .schedule-header h3 {
+    font-size: 1.1rem;
+  }
+}
